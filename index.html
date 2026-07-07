@@ -77,8 +77,10 @@
   .hero-foto{position:absolute;inset:0;overflow:hidden}
   .hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
   .hero-foto::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(20,35,50,.35) 0%, rgba(20,35,50,.05) 40%, rgba(20,35,50,.72) 100%),
-               linear-gradient(100deg, rgba(20,35,50,.42) 0%, rgba(20,35,50,0) 55%)}
+    background:
+      radial-gradient(ellipse 620px 460px at 26% 82%, rgba(8,16,26,.55) 0%, rgba(8,16,26,.22) 55%, transparent 75%),
+      linear-gradient(180deg, rgba(20,35,50,.35) 0%, rgba(20,35,50,.08) 40%, rgba(20,35,50,.78) 100%),
+      linear-gradient(100deg, rgba(20,35,50,.42) 0%, rgba(20,35,50,0) 55%)}
   .carta-header{position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.35)}
   .carta-header .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
   .carta-header span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
@@ -92,8 +94,8 @@
   .hero-marca span{display:block;font-weight:600;font-size:.4em;letter-spacing:.34em;margin-top:8px}
   .hero-marca.in{opacity:1}
   .hero-main{position:relative;z-index:2;margin-top:auto;padding:0 0 56px}
-  .hero-main h1{font-size:clamp(3rem, 8vw, 6rem);max-width:12ch;margin-bottom:18px;text-shadow:0 2px 24px rgba(0,0,0,.25)}
-  .hero-main p{font-size:17.5px;max-width:44ch;margin-bottom:30px;text-shadow:0 1px 12px rgba(0,0,0,.3)}
+  .hero-main h1{font-size:clamp(3rem, 8vw, 6rem);max-width:12ch;margin-bottom:18px;text-shadow:0 2px 4px rgba(0,0,0,.5), 0 4px 30px rgba(0,0,0,.4)}
+  .hero-main p{font-size:17.5px;max-width:44ch;margin-bottom:30px;text-shadow:0 1px 3px rgba(0,0,0,.55), 0 2px 14px rgba(0,0,0,.35)}
   .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
   .hero-urgencia{font-family:var(--mono);font-size:12px;letter-spacing:.05em;margin-top:16px;
     color:rgba(255,255,255,.85);text-shadow:0 1px 8px rgba(0,0,0,.4)}
@@ -134,6 +136,20 @@
   .parada .aviso{font-size:13.5px;color:#7A5A1E;background:#F3E4BC;padding:9px 13px;margin-top:14px;
     border-left:3px solid #C9992E;max-width:52ch}
   .horario-nota{font-family:var(--mono);font-size:11.5px;color:var(--tinta-clara);margin-top:28px;padding-top:20px;border-top:1px dashed rgba(27,58,92,.3)}
+
+  /* ---------- RESTAURANTE ---------- */
+  .restaurante{padding:90px 0;background:var(--papel-2);border-top:1.5px solid var(--tinta)}
+  .restaurante-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  @media(max-width:820px){.restaurante-grid{grid-template-columns:1fr;gap:32px}}
+  .restaurante-grid img{width:100%;height:420px;object-fit:cover;border:1.5px solid var(--tinta);
+    box-shadow:6px 6px 0 rgba(27,58,92,.14)}
+  @media(max-width:820px){.restaurante-grid img{height:320px}}
+  .restaurante-grid .tag{display:inline-block;background:var(--papel);color:var(--boia);font-size:12.5px;font-weight:600;
+    padding:5px 13px;border-radius:999px;margin-bottom:16px}
+  .restaurante-grid h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:16px}
+  .restaurante-grid p{color:#41546A;font-size:16px;max-width:46ch;margin-bottom:18px}
+  .restaurante-grid .aviso{font-size:13.5px;color:#7A5A1E;background:#F3E4BC;padding:12px 16px;
+    border-left:3px solid #C9992E;max-width:46ch}
 
   /* ---------- PAUSA (grupo) ---------- */
   .pausa{position:relative;line-height:0;border-top:1.5px solid var(--tinta)}
@@ -191,10 +207,13 @@
   .cta-final{position:relative;min-height:78vh;display:flex;align-items:center;justify-content:center;
     text-align:center;color:var(--papel);border-top:1.5px solid var(--tinta);overflow:hidden}
   .cta-final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .cta-final::before{content:"";position:absolute;inset:0;background:rgba(20,35,50,.58)}
+  .cta-final::before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 62% 58% at 50% 42%, rgba(8,16,26,.62) 0%, rgba(8,16,26,.28) 55%, transparent 75%),
+      rgba(20,35,50,.42)}
   .cta-final .wrap{position:relative;z-index:2}
-  .cta-final h2{font-size:clamp(2.2rem,5.5vw,3.6rem);max-width:17ch;margin:0 auto 16px;text-shadow:0 2px 20px rgba(0,0,0,.3)}
-  .cta-final p{color:rgba(247,241,227,.88);margin-bottom:30px;text-shadow:0 1px 10px rgba(0,0,0,.3)}
+  .cta-final h2{font-size:clamp(2.2rem,5.5vw,3.6rem);max-width:17ch;margin:0 auto 16px;text-shadow:0 2px 4px rgba(0,0,0,.55), 0 4px 24px rgba(0,0,0,.4)}
+  .cta-final p{color:rgba(247,241,227,.88);margin-bottom:30px;text-shadow:0 1px 3px rgba(0,0,0,.5), 0 2px 12px rgba(0,0,0,.35)}
   footer{background:var(--tinta);color:rgba(247,241,227,.55);padding:24px 0 100px;text-align:center;
     font-family:var(--mono);font-size:12px;border-top:1px solid rgba(247,241,227,.15)}
 
@@ -443,14 +462,10 @@
             <span class="parada-hora">11h40</span>
             <span class="parada-coord">27°50'S · 48°37'W</span>
           </div>
-          <div class="duo">
-            <img src="assets/pedras-altas.jpg" alt="Praia de Pedras Altas" loading="lazy">
-            <img src="assets/gastronomia.jpg" alt="Gastronomia local: peixe com camarão, arroz e pirão" loading="lazy">
-          </div>
+          <img src="assets/pedras-altas.jpg" alt="Praia de Pedras Altas" loading="lazy">
           <div>
             <h3>Praia de Pedras Altas</h3>
-            <p>Passando pela Praia do Sonho e pelas fazendas de ostras, a rota chega numa praia praticamente particular. Almoço no restaurante local, com tempo pra comer sem pressa.</p>
-            <div class="aviso">Almoço não incluso no valor do passeio — consuma no restaurante ou traga seu próprio lanche.</div>
+            <p>Passando pela Praia do Sonho e pelas fazendas de ostras, a rota chega numa praia praticamente particular, com tempo pra comer sem pressa e aproveitar o mar.</p>
           </div>
         </div>
 
@@ -468,6 +483,19 @@
 
         <p class="horario-nota">* Horários aproximados da saída das 08h. Na saída das 10h, some duas horas a cada ponto.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESTAURANTE -->
+<section class="restaurante">
+  <div class="wrap restaurante-grid">
+    <img class="reveal" src="assets/gastronomia.jpg" alt="Peixe com camarão, arroz e pirão servidos no restaurante de Pedras Altas">
+    <div class="reveal">
+      <span class="tag">Opcional · à parte do valor do passeio</span>
+      <h2>Parada pra comer, em paz.</h2>
+      <p>Na praia de Pedras Altas, praticamente particular, funciona um restaurante local — peixe fresco da região, servido em pratos de barro, sem pressa nenhuma pra comer.</p>
+      <div class="aviso">O almoço não está incluso no valor do passeio. Você paga direto por conta no restaurante, ou traz seu próprio lanche pra comer na praia.</div>
     </div>
   </div>
 </section>
