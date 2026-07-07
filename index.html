@@ -1,15 +1,17 @@
 <!--
-  MAPA DO ARQUIVO
-  L1-40     head, meta, fonts, variáveis CSS
-  L41-160   reset + componentes base (botões, wrap, tags)
-  L161-260  hero
-  L261-320  pilares
-  L321-460  roteiro (timeline com linha de rota)
-  L461-520  vídeo real
-  L521-600  prova social
-  L601-680  info prática + mapa
-  L681-720  cta final + footer + sticky whatsapp
-  L721-fim  JS (reveal on scroll)
+  MAPA DO ARQUIVO (carta náutica v2)
+  L1-30     head, meta, OG, fonts
+  L31-95    variáveis, reset, componentes (btn, wrap, mono)
+  L96-150   hero
+  L151-175  faixa legenda
+  L176-260  roteiro: grid mapa fixo + paradas
+  L261-300  vídeo real
+  L301-345  prova social (assimétrica)
+  L346-395  ficha técnica + ponto de encontro
+  L396-420  fechamento + cta final + footer + sticky
+  L421-520  modal de qualificação
+  L521-620  SVG da carta náutica (inline no HTML)
+  L621-fim  JS: reveal, rota desenhando, sync mapa/paradas, modal
 -->
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -17,260 +19,360 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ilhas do Sul Passeios — Passeio de barco no sul de Florianópolis</title>
-<meta name="description" content="Seis horas de barco pelo sul da Ilha de Santa Catarina, guiado por pescadores locais. Naufragados, Fortaleza de Araçatuba, Ponta do Papagaio e Pedras Altas.">
+<meta name="description" content="Seis horas de barco pelo extremo sul da Ilha de Santa Catarina, guiado por pescadores locais. Naufragados, Fortaleza de Araçatuba, Ponta do Papagaio e Pedras Altas.">
+<meta property="og:title" content="Ilhas do Sul Passeios — O sul da ilha, visto do mar">
+<meta property="og:description" content="6 horas de barco com pescadores locais. R$130 por pessoa, saídas todos os dias da Caieira da Barra do Sul.">
+<meta property="og:image" content="assets/hero-guia.jpg">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;800&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0B1D2E;
-    --navy-2:#132A40;
-    --ink:#16232C;
-    --sand:#F3EDE1;
-    --sand-2:#EAE1D1;
-    --gold:#E2A24C;
-    --teal:#2E6E6B;
-    --white:#FFFFFF;
-    --muted:#7C8B94;
-    --display: 'Big Shoulders Display', sans-serif;
-    --body: 'Work Sans', sans-serif;
+    --papel:#F7F1E3;
+    --papel-2:#EFE5CE;
+    --tinta:#1B3A5C;
+    --tinta-clara:#5A7186;
+    --boia:#D63B2F;
+    --boia-escura:#B22F25;
+    --agua:#2FA8A0;
+    --display:'Big Shoulders Stencil Display', sans-serif;
+    --body:'Archivo', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{font-family:var(--body);color:var(--ink);background:var(--sand);line-height:1.5;-webkit-font-smoothing:antialiased}
+  body{font-family:var(--body);color:var(--tinta);background:var(--papel);line-height:1.55;-webkit-font-smoothing:antialiased}
   img{max-width:100%;display:block}
-  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
   a{color:inherit;text-decoration:none}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
 
-  h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;line-height:1.02}
+  h1,h2{font-family:var(--display);font-weight:800;line-height:.95;letter-spacing:.005em;text-transform:uppercase}
+  h3{font-family:var(--body);font-weight:600}
+
+  .mono{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--tinta-clara)}
 
   .btn{
     display:inline-flex;align-items:center;gap:10px;
-    background:var(--gold);color:var(--navy);
-    font-family:var(--body);font-weight:600;font-size:16px;
-    padding:15px 28px;border-radius:999px;border:none;cursor:pointer;
-    transition:transform .18s ease, background .18s ease;
+    background:var(--boia);color:#fff;
+    font-weight:600;font-size:16px;
+    padding:15px 28px;border-radius:4px;border:none;cursor:pointer;
+    transition:background .15s ease, transform .15s ease;
   }
-  .btn:hover{background:#EFB565;transform:translateY(-1px)}
-  .btn.ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.55)}
-  .btn.ghost:hover{background:rgba(255,255,255,.1)}
+  .btn:hover{background:var(--boia-escura);transform:translateY(-1px)}
+  .btn.linha{background:transparent;color:var(--tinta);border:1.5px solid var(--tinta)}
+  .btn.linha:hover{background:rgba(27,58,92,.06);transform:none}
   .btn svg{width:19px;height:19px;flex-shrink:0}
 
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease, transform .7s ease}
   .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    #rota-linha{stroke-dashoffset:0 !important;transition:none !important}
+  }
 
   /* ---------- HERO ---------- */
-  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:var(--white);overflow:hidden}
-  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
-  .hero::after{
-    content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(11,29,46,.15) 0%, rgba(11,29,46,.25) 45%, rgba(11,29,46,.92) 100%);
-  }
-  .hero-content{position:relative;z-index:2;padding:0 24px 64px;width:100%}
-  .hero-content .wrap{padding:0}
-  .hero h1{font-size:clamp(2.6rem, 6vw, 4.6rem);max-width:14ch;margin-bottom:20px}
-  .hero p{font-size:18px;max-width:46ch;opacity:.92;margin-bottom:32px}
+  .hero{position:relative;min-height:92svh;display:flex;flex-direction:column;color:#fff}
+  .hero-foto{position:absolute;inset:0;overflow:hidden}
+  .hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .hero-foto::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(20,35,50,.35) 0%, rgba(20,35,50,.05) 40%, rgba(20,35,50,.72) 100%)}
+  .carta-header{position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.35)}
+  .carta-header .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
+  .carta-header span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+  @media(max-width:640px){.carta-header span:nth-child(2){display:none}}
+  .hero-main{position:relative;z-index:2;margin-top:auto;padding:0 0 56px}
+  .hero-main h1{font-size:clamp(3rem, 8vw, 6rem);max-width:12ch;margin-bottom:18px;text-shadow:0 2px 24px rgba(0,0,0,.25)}
+  .hero-main p{font-size:17.5px;max-width:44ch;margin-bottom:30px;text-shadow:0 1px 12px rgba(0,0,0,.3)}
   .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
 
-  /* ---------- PILARES ---------- */
-  .pilares{background:var(--navy);color:var(--white);padding:26px 0}
-  .pilares .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;font-family:var(--body);font-size:15px;text-align:center}
-  .pilares span{padding:0 22px;opacity:.92}
-  .pilares span:not(:last-child){border-right:1px solid rgba(255,255,255,.25)}
-  @media(max-width:640px){.pilares span{border-right:none!important;padding:4px 14px}}
+  /* ---------- LEGENDA ---------- */
+  .legenda{background:var(--papel);border-bottom:1px solid rgba(27,58,92,.18)}
+  .legenda .wrap{display:flex;flex-wrap:wrap;gap:8px 34px;padding-top:16px;padding-bottom:16px}
+  .legenda span{font-family:var(--mono);font-size:12px;letter-spacing:.05em;color:var(--tinta)}
+  .legenda b{color:var(--boia);font-weight:500;margin-right:7px}
 
   /* ---------- ROTEIRO ---------- */
-  .roteiro{padding:100px 0 70px;background:var(--sand)}
-  .roteiro-head{max-width:640px;margin-bottom:64px}
-  .roteiro-head h2{font-size:clamp(2rem,4.2vw,2.9rem);margin:12px 0 16px}
-  .roteiro-head p{color:var(--muted);font-size:17px}
+  .roteiro{padding:90px 0 80px}
+  .roteiro-head{max-width:660px;margin-bottom:56px}
+  .roteiro-head h2{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:14px}
+  .roteiro-head p{color:var(--tinta-clara);font-size:16.5px}
+  .roteiro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:start}
+  @media(max-width:900px){.roteiro-grid{grid-template-columns:1fr;gap:44px}}
+  .mapa-col{position:sticky;top:24px}
+  @media(max-width:900px){.mapa-col{position:static}}
+  .mapa-moldura{background:var(--papel-2);border:1.5px solid var(--tinta);padding:14px;
+    box-shadow:5px 5px 0 rgba(27,58,92,.14)}
+  .mapa-moldura svg{width:100%;height:auto;display:block}
 
-  .timeline{position:relative}
-  .timeline::before{
-    content:"";position:absolute;left:29px;top:6px;bottom:6px;width:2px;
-    background:repeating-linear-gradient(to bottom, var(--teal) 0 8px, transparent 8px 16px);
-  }
-  @media(max-width:760px){.timeline::before{left:19px}}
-
-  .stop{position:relative;padding-left:76px;margin-bottom:56px}
-  @media(max-width:760px){.stop{padding-left:52px;margin-bottom:44px}}
-  .stop:last-child{margin-bottom:0}
-  .stop-marker{
-    position:absolute;left:0;top:2px;width:60px;height:60px;border-radius:50%;
-    background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;
-    font-family:var(--display);font-weight:700;font-size:22px;border:3px solid var(--sand);
-  }
-  @media(max-width:760px){.stop-marker{width:40px;height:40px;font-size:15px}}
-  .stop-body{max-width:62ch}
-  .stop-body.has-img{max-width:none;display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
-  .stop:nth-child(even) .stop-body.has-img{grid-template-columns:.9fr 1.1fr}
-  .stop:nth-child(even) .stop-img{order:2}
-  @media(max-width:760px){.stop-body.has-img{grid-template-columns:1fr!important}.stop-img{order:0!important}}
-  .stop-img{display:flex;flex-direction:column;gap:10px}
-  .stop-img.split{flex-direction:row}
-  .stop-img img{border-radius:6px;width:100%;height:230px;object-fit:cover}
-  .stop-img.split img{height:230px;width:calc(50% - 5px)}
-  .stop h3{font-size:22px;margin-bottom:10px;color:var(--navy)}
-  .stop p{color:#4A555C;font-size:15.5px}
-  .stop .tag{display:inline-block;background:var(--sand-2);color:var(--teal);font-size:12.5px;font-weight:600;
-    padding:4px 12px;border-radius:999px;margin-bottom:12px}
-  .stop .note{background:#FBF2DE;border-left:3px solid var(--gold);padding:10px 14px;font-size:14px;margin-top:12px;color:#6B5426}
+  .parada{padding:26px 0 30px;border-bottom:1px dashed rgba(27,58,92,.3)}
+  .parada:first-child{padding-top:0}
+  .parada:last-child{border-bottom:none}
+  .parada-meta{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px;margin-bottom:8px}
+  .parada-hora{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--boia)}
+  .parada-coord{font-family:var(--mono);font-size:11.5px;color:var(--tinta-clara);letter-spacing:.04em}
+  .parada h3{font-size:21px;margin-bottom:8px}
+  .parada p{color:#41546A;font-size:15.5px;max-width:56ch}
+  .parada img{margin-top:16px;border:1.5px solid var(--tinta);width:100%;max-height:250px;object-fit:cover}
+  .parada .duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  .parada .duo img{margin-top:0;height:190px}
+  @media(max-width:520px){.parada .duo{grid-template-columns:1fr}.parada .duo img{height:auto;max-height:230px}}
+  .parada .aviso{font-size:13.5px;color:#7A5A1E;background:#F3E4BC;padding:9px 13px;margin-top:14px;
+    border-left:3px solid #C9992E;max-width:56ch}
+  .horario-nota{font-family:var(--mono);font-size:11.5px;color:var(--tinta-clara);margin-top:28px}
 
   /* ---------- VIDEO REAL ---------- */
-  .real{background:var(--navy);color:var(--white);padding:90px 0}
-  .real .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
-  @media(max-width:800px){.real .wrap{grid-template-columns:1fr}}
-  .real h2{font-size:clamp(1.9rem,4vw,2.6rem);margin:12px 0 18px}
-  .real p{color:rgba(255,255,255,.78);font-size:16px;margin-bottom:26px;max-width:42ch}
-  .real video{width:100%;border-radius:10px;max-height:640px;object-fit:cover}
+  .real{background:var(--tinta);color:var(--papel);padding:84px 0}
+  .real .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+  @media(max-width:820px){.real .wrap{grid-template-columns:1fr}}
+  .real h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:16px}
+  .real p{color:rgba(247,241,227,.82);font-size:16px;margin-bottom:26px;max-width:44ch}
+  .real video{width:100%;border:1.5px solid rgba(247,241,227,.5);max-height:620px;object-fit:cover;background:#0e2033}
 
   /* ---------- PROVA SOCIAL ---------- */
-  .social{padding:90px 0;background:var(--white)}
-  .social-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px}
-  .social-top h2{font-size:clamp(1.9rem,4vw,2.6rem)}
-  .stat-row{display:flex;gap:36px;flex-wrap:wrap}
-  .stat b{font-family:var(--display);font-size:2.1rem;color:var(--navy);display:block;line-height:1}
-  .stat span{font-size:13.5px;color:var(--muted)}
-  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-  @media(max-width:860px){.quotes{grid-template-columns:1fr}}
-  .quote{background:var(--sand);padding:26px;border-radius:6px}
-  .quote p{font-size:15px;color:#3E4A52;margin-bottom:14px}
-  .quote .stars{color:var(--gold);font-size:14px;margin-bottom:10px}
+  .social{padding:90px 0;background:var(--papel)}
+  .social-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}
+  @media(max-width:820px){.social-grid{grid-template-columns:1fr;gap:36px}}
+  .nota-bloco h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:22px}
+  .nota-num{font-family:var(--display);font-weight:800;font-size:5rem;line-height:1;color:var(--boia)}
+  .nota-estrelas{color:var(--boia);font-size:19px;letter-spacing:3px;margin:6px 0 4px}
+  .nota-bloco .mono{display:block;margin-bottom:18px}
+  .depo-grande{font-size:20px;line-height:1.55;color:var(--tinta);border-left:3px solid var(--boia);
+    padding-left:22px;margin-bottom:34px}
+  .depo-menores{display:grid;gap:20px}
+  .depo-menores p{font-size:14.5px;color:#41546A;padding-top:16px;border-top:1px dashed rgba(27,58,92,.3)}
 
-  /* ---------- INFO PRÁTICA ---------- */
-  .info{background:var(--sand-2);padding:90px 0}
-  .info .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-  @media(max-width:800px){.info .wrap{grid-template-columns:1fr;gap:40px}}
-  .info h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:26px}
-  .info-list{list-style:none}
-  .info-list li{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:15.5px}
-  .info-list li b{font-weight:600}
-  .info-list li span:first-child{color:var(--muted)}
-  .map-card{background:var(--navy);color:var(--white);border-radius:10px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:280px}
-  .map-card h3{font-size:20px;margin-bottom:10px}
-  .map-card p{color:rgba(255,255,255,.75);font-size:14.5px;margin-bottom:22px}
+  /* ---------- FICHA ---------- */
+  .ficha{background:var(--papel-2);padding:88px 0;border-top:1.5px solid var(--tinta)}
+  .ficha .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:start}
+  @media(max-width:820px){.ficha .wrap{grid-template-columns:1fr;gap:40px}}
+  .ficha h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:24px}
+  .ficha-lista{list-style:none}
+  .ficha-lista li{display:flex;justify-content:space-between;gap:16px;padding:13px 0;
+    border-bottom:1px dashed rgba(27,58,92,.3);font-size:15px}
+  .ficha-lista .mono{font-size:12px;text-transform:uppercase;padding-top:2px}
+  .ficha-lista b{font-weight:600;text-align:right}
+  .carimbo{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--boia);border:2px solid var(--boia);padding:7px 14px;transform:rotate(-2deg);margin-top:22px}
+  .encontro{border:1.5px solid var(--tinta);background:var(--papel);padding:30px;
+    box-shadow:5px 5px 0 rgba(27,58,92,.14)}
+  .encontro h3{font-size:19px;margin-bottom:8px}
+  .encontro .mono{display:block;margin-bottom:6px}
+  .encontro p{font-size:14.5px;color:#41546A;margin-bottom:22px}
 
-  /* ---------- FECHAMENTO ---------- */
-  .fechamento{line-height:0}
-  .fechamento img{width:100%;max-height:78vh;object-fit:cover;display:block}
+  /* ---------- FECHAMENTO / CTA ---------- */
+  .fechamento{line-height:0;border-top:1.5px solid var(--tinta)}
+  .fechamento img{width:100%;max-height:76vh;object-fit:cover}
+  .cta-final{background:var(--tinta);color:var(--papel);padding:92px 0;text-align:center}
+  .cta-final h2{font-size:clamp(2.2rem,5.5vw,3.6rem);max-width:17ch;margin:0 auto 16px}
+  .cta-final p{color:rgba(247,241,227,.8);margin-bottom:30px}
+  footer{background:var(--tinta);color:rgba(247,241,227,.55);padding:24px 0 100px;text-align:center;
+    font-family:var(--mono);font-size:12px;border-top:1px solid rgba(247,241,227,.15)}
 
-  /* ---------- CTA FINAL ---------- */
-  .cta-final{background:var(--navy);color:var(--white);padding:100px 0;text-align:center}
-  .cta-final h2{font-size:clamp(2rem,5vw,3.2rem);max-width:16ch;margin:0 auto 18px}
-  .cta-final p{color:rgba(255,255,255,.78);margin-bottom:32px}
-
-  footer{background:var(--navy);color:rgba(255,255,255,.55);padding:26px 0 100px;text-align:center;font-size:13.5px;border-top:1px solid rgba(255,255,255,.08)}
-  footer a{color:var(--gold)}
-
-  /* ---------- STICKY WHATSAPP ---------- */
-  .sticky-cta{
-    position:fixed;left:0;right:0;bottom:0;z-index:50;
-    background:var(--navy);padding:12px 16px;display:flex;justify-content:center;
-    box-shadow:0 -6px 20px rgba(0,0,0,.2);
-  }
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--papel);
+    padding:12px 16px;display:flex;justify-content:center;border-top:1.5px solid var(--tinta)}
   .sticky-cta .btn{width:100%;max-width:420px;justify-content:center}
   @media(min-width:900px){.sticky-cta{display:none}}
-  body{padding-bottom:78px}
+  body{padding-bottom:76px}
   @media(min-width:900px){body{padding-bottom:0}}
+
+  /* ---------- MODAL QUALIFICAÇÃO ---------- */
+  .modal-fundo{position:fixed;inset:0;background:rgba(20,35,50,.55);z-index:90;display:none;
+    align-items:center;justify-content:center;padding:18px}
+  .modal-fundo.aberto{display:flex}
+  .modal{background:var(--papel);border:1.5px solid var(--tinta);max-width:440px;width:100%;
+    padding:30px;box-shadow:6px 6px 0 rgba(27,58,92,.25);max-height:92svh;overflow:auto}
+  .modal h3{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:26px;margin-bottom:4px}
+  .modal .mono{display:block;margin-bottom:22px}
+  .campo{margin-bottom:18px}
+  .campo label{display:block;font-size:13.5px;font-weight:600;margin-bottom:7px}
+  .campo input[type=date],.campo input[type=number]{width:100%;padding:11px 12px;font-family:var(--mono);
+    font-size:15px;border:1.5px solid var(--tinta);background:#fff;color:var(--tinta);border-radius:3px}
+  .campo input:focus{outline:2px solid var(--boia);outline-offset:1px}
+  .tipo-opcoes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .tipo-opcoes label{border:1.5px solid var(--tinta);padding:11px;text-align:center;font-size:14px;
+    font-weight:600;cursor:pointer;border-radius:3px;margin:0}
+  .tipo-opcoes input{display:none}
+  .tipo-opcoes input:checked + span{color:var(--boia)}
+  .tipo-opcoes label:has(input:checked){border-color:var(--boia);background:rgba(214,59,47,.07)}
+  .modal .btn{width:100%;justify-content:center;margin-top:6px}
+  .modal-links{margin-top:16px;text-align:center}
+  .modal-links button,.modal-links a{font-size:13px;color:var(--tinta-clara);background:none;border:none;
+    cursor:pointer;text-decoration:underline;font-family:var(--body)}
 </style>
 </head>
 <body>
 
 <!-- HERO -->
 <section class="hero">
-  <img src="assets/hero-guia.jpg" alt="Guia sorrindo com grupo de turistas no barco, pôr do sol ao fundo">
-  <div class="hero-content">
+  <div class="hero-foto"><img src="assets/hero-guia.jpg" alt="Guia e grupo sorrindo no barco, pôr do sol no sul da ilha"></div>
+  <div class="carta-header">
+    <div class="wrap">
+      <span>Carta Nº 01 · Passeio Ilhas do Sul</span>
+      <span>Caieira da Barra do Sul · Florianópolis</span>
+      <span>27°48'54"S · 48°33'37"W</span>
+    </div>
+  </div>
+  <div class="hero-main">
     <div class="wrap">
       <h1>O sul da ilha, visto do mar.</h1>
-      <p>Seis horas de barco saindo da Caieira da Barra do Sul, com pescadores locais como guia: do Farol dos Naufragados às águas cristalinas da Ponta do Papagaio.</p>
+      <p>Seis horas de barco com pescadores locais como guia, do Farol dos Naufragados às águas cristalinas da Ponta do Papagaio.</p>
       <div class="hero-ctas">
-        <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">
+        <button class="btn abrir-modal">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
-          Chamar no WhatsApp
-        </a>
-        <a class="btn ghost" href="#roteiro">Ver o roteiro</a>
+          Agendar meu passeio
+        </button>
+        <a class="btn linha" style="color:#fff;border-color:rgba(255,255,255,.7)" href="#roteiro">Ver a rota</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PILARES -->
-<section class="pilares">
+<!-- LEGENDA -->
+<div class="legenda">
   <div class="wrap">
-    <span>Guiado por pescadores locais</span>
-    <span>Tradição, cultura e história</span>
-    <span>Sul da Ilha, Floripa</span>
+    <span><b>●</b>Guiado por pescadores locais</span>
+    <span><b>●</b>Tradição, cultura e história</span>
+    <span><b>●</b>Saídas todos os dias · R$130 por pessoa</span>
   </div>
-</section>
+</div>
 
 <!-- ROTEIRO -->
 <section class="roteiro" id="roteiro">
   <div class="wrap">
     <div class="roteiro-head reveal">
-      <h2>O roteiro: um dia inteiro navegando pelo sul da ilha.</h2>
-      <p>Seis horas de embarcação, contadas pelos mesmos pescadores que conhecem cada pedra dessa costa.</p>
+      <h2>A rota, ponto a ponto.</h2>
+      <p>Seis horas de navegação pelo extremo sul, contadas pelos mesmos pescadores que conhecem cada pedra dessa costa.</p>
     </div>
 
-    <div class="timeline">
-      <div class="stop reveal">
-        <div class="stop-marker">1</div>
-        <div class="stop-body">
-          <span class="tag">Início</span>
+    <div class="roteiro-grid">
+      <div class="mapa-col reveal">
+        <div class="mapa-moldura">
+          <svg id="carta" viewBox="0 0 600 720" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Carta náutica estilizada da rota do passeio">
+            <!-- grade -->
+            <g stroke="#1B3A5C" stroke-opacity=".13" stroke-width="1">
+              <line x1="120" y1="0" x2="120" y2="720"/><line x1="240" y1="0" x2="240" y2="720"/>
+              <line x1="360" y1="0" x2="360" y2="720"/><line x1="480" y1="0" x2="480" y2="720"/>
+              <line x1="0" y1="180" x2="600" y2="180"/><line x1="0" y1="360" x2="600" y2="360"/>
+              <line x1="0" y1="540" x2="600" y2="540"/>
+            </g>
+            <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#5A7186">
+              <text x="106" y="14">48°37'W</text><text x="346" y="14">48°35'W</text>
+              <text x="4" y="176">27°49'S</text><text x="4" y="356">27°50'S</text><text x="4" y="536">27°51'S</text>
+            </g>
+            <!-- sondagens -->
+            <g font-family="IBM Plex Mono, monospace" font-size="10" fill="#5A7186" opacity=".75">
+              <text x="300" y="120">14</text><text x="255" y="255">11</text><text x="415" y="300">9</text>
+              <text x="330" y="415">12</text><text x="245" y="565">16</text><text x="440" y="600">18</text>
+              <text x="150" y="330">7</text>
+            </g>
+            <!-- continente (oeste) -->
+            <path d="M0,0 L96,0 C88,60 104,120 92,180 C82,240 100,290 88,340 C80,385 112,420 128,452 C140,478 122,510 96,530 C70,552 60,620 52,720 L0,720 Z"
+              fill="#EFE5CE" stroke="#1B3A5C" stroke-width="1.6"/>
+            <!-- ilha de SC (leste) -->
+            <path d="M600,0 L470,0 C482,70 458,130 470,200 C480,258 452,300 462,352 C470,396 448,430 468,462 C488,494 530,500 560,530 C580,548 596,560 600,566 Z"
+              fill="#EFE5CE" stroke="#1B3A5C" stroke-width="1.6"/>
+            <!-- ilha de araçatuba -->
+            <path d="M336,476 C352,466 374,470 380,486 C386,502 370,514 352,512 C334,510 326,488 336,476 Z"
+              fill="#EFE5CE" stroke="#1B3A5C" stroke-width="1.6"/>
+            <!-- ilha do papagaio -->
+            <ellipse cx="196" cy="470" rx="17" ry="12" fill="#EFE5CE" stroke="#1B3A5C" stroke-width="1.6"/>
+            <!-- rosa dos ventos -->
+            <g transform="translate(66,86)" stroke="#1B3A5C" fill="#1B3A5C">
+              <circle r="24" fill="none" stroke-width="1.2"/>
+              <path d="M0,-24 L5,0 L0,7 L-5,0 Z"/>
+              <path d="M0,24 L4,4 L-4,4 Z" fill="#D63B2F" stroke="#D63B2F"/>
+              <text y="-30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" stroke="none">N</text>
+            </g>
+            <!-- rota (desenhada no scroll) -->
+            <path id="rota-linha" d="M508,178 C494,240 480,300 486,368 C490,408 486,428 476,446 C450,486 400,502 372,494 C348,488 330,472 300,468 C264,462 232,452 210,452 C196,452 184,436 178,414"
+              fill="none" stroke="#D63B2F" stroke-width="2.6" stroke-dasharray="7 7" stroke-linecap="round"/>
+            <!-- retorno pontilhado leve -->
+            <path d="M178,414 C230,360 330,300 430,240 C458,222 486,200 508,178"
+              fill="none" stroke="#D63B2F" stroke-opacity=".38" stroke-width="1.6" stroke-dasharray="2 8" stroke-linecap="round"/>
+            <!-- pontos das paradas -->
+            <g id="pontos" font-family="IBM Plex Mono, monospace" font-size="12" text-anchor="middle">
+              <g class="ponto" data-p="0"><circle cx="508" cy="178" r="12" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.8"/><text x="508" y="182" fill="#1B3A5C">0</text></g>
+              <g class="ponto" data-p="1"><circle cx="482" cy="440" r="12" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.8"/><text x="482" y="444" fill="#1B3A5C">1</text></g>
+              <g class="ponto" data-p="2"><circle cx="366" cy="494" r="12" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.8"/><text x="366" y="498" fill="#1B3A5C">2</text></g>
+              <g class="ponto" data-p="3"><circle cx="216" cy="452" r="12" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.8"/><text x="216" y="456" fill="#1B3A5C">3</text></g>
+              <g class="ponto" data-p="4"><circle cx="178" cy="410" r="12" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.8"/><text x="178" y="414" fill="#1B3A5C">4</text></g>
+            </g>
+            <!-- nomes -->
+            <g font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#1B3A5C">
+              <text x="524" y="170">CAIEIRA</text>
+              <text x="498" y="470">NAUFRAGADOS</text>
+              <text x="340" y="536">ARAÇATUBA</text>
+              <text x="150" y="496">PAPAGAIO</text>
+              <text x="96" y="396">PEDRAS ALTAS</text>
+            </g>
+            <!-- bloco de título -->
+            <g transform="translate(354,614)">
+              <rect width="228" height="86" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.4"/>
+              <text x="14" y="24" font-family="Big Shoulders Stencil Display, sans-serif" font-weight="800" font-size="19" fill="#1B3A5C">PASSEIO ILHAS DO SUL</text>
+              <text x="14" y="44" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5A7186">ROTA REGULAR · 6 HORAS</text>
+              <text x="14" y="60" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5A7186">SAÍDAS 08H00 / 10H00</text>
+              <text x="14" y="76" font-family="IBM Plex Mono, monospace" font-size="10" fill="#D63B2F">VAGAS LIMITADAS POR SAÍDA</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="paradas-col">
+        <div class="parada reveal" data-p="1">
+          <div class="parada-meta">
+            <span class="parada-hora">≈ 08h40</span>
+            <span class="parada-coord">27°50'S · 48°34'W</span>
+          </div>
           <h3>Farol dos Naufragados</h3>
-          <p>Saindo da Caieira da Barra do Sul, seguimos até a Praia dos Naufragados, com parada em frente ao farol. Ali o guia conta histórias da pesca da tainha e da cultura manezinha, parte viva da região.</p>
+          <p>Saindo da Caieira, a primeira parada é em frente ao farol, na Praia dos Naufragados. Ali o guia conta histórias da pesca da tainha e da cultura manezinha, parte viva dessa costa.</p>
         </div>
-      </div>
 
-      <div class="stop reveal">
-        <div class="stop-marker">2</div>
-        <div class="stop-body has-img">
-          <div>
-            <span class="tag">Alto mar</span>
-            <h3>Fortaleza de Araçatuba</h3>
-            <p>Navegando em mar aberto, passamos em frente à Fortaleza de Araçatuba — uma aula de história ao ar livre, sem sair do barco.</p>
+        <div class="parada reveal" data-p="2">
+          <div class="parada-meta">
+            <span class="parada-hora">≈ 09h30</span>
+            <span class="parada-coord">27°51'S · 48°35'W</span>
           </div>
-          <div class="stop-img"><img src="assets/fortaleza.jpg" alt="Fortaleza de Araçatuba vista do mar"></div>
+          <h3>Fortaleza de Araçatuba</h3>
+          <p>Navegando em mar aberto, o barco passa em frente às ruínas da fortaleza do século XVIII. Uma aula de história ao ar livre, sem sair do banco.</p>
+          <img src="assets/fortaleza.jpg" alt="Fortaleza de Araçatuba vista do mar" loading="lazy">
         </div>
-      </div>
 
-      <div class="stop reveal">
-        <div class="stop-marker">3</div>
-        <div class="stop-body has-img">
-          <div>
-            <span class="tag">Mergulho · 1h</span>
-            <h3>Ponta do Papagaio</h3>
-            <p>Uma prainha pouco conhecida, de frente para a Ilha do Papagaio. Aqui o barco para por cerca de uma hora, com água cristalina e tranquilidade longe das praias cheias.</p>
+        <div class="parada reveal" data-p="3">
+          <div class="parada-meta">
+            <span class="parada-hora">≈ 10h30 · parada de 1h</span>
+            <span class="parada-coord">27°50'S · 48°36'W</span>
           </div>
-          <div class="stop-img"><img src="assets/papagaio.jpg" alt="Prainha na Ponta do Papagaio com água cristalina"></div>
+          <h3>Ponta do Papagaio</h3>
+          <p>Uma prainha pouco conhecida, de frente para a Ilha do Papagaio. O barco ancora por cerca de uma hora para mergulho em água cristalina, longe das praias cheias.</p>
+          <img src="assets/papagaio.jpg" alt="Prainha da Ponta do Papagaio com água cristalina" loading="lazy">
         </div>
-      </div>
 
-      <div class="stop reveal">
-        <div class="stop-marker">4</div>
-        <div class="stop-body has-img">
-          <div>
-            <span class="tag">Almoço · 2h</span>
-            <h3>Praia de Pedras Altas</h3>
-            <p>Passamos pela Praia do Sonho e por fazendas de ostras até chegar numa praia praticamente particular. O almoço é no Restaurante Pedras Altas, com parada de aproximadamente duas horas.</p>
-            <div class="note">O almoço não está incluso no passeio — você pode consumir no restaurante ou trazer seu próprio lanche.</div>
+        <div class="parada reveal" data-p="4">
+          <div class="parada-meta">
+            <span class="parada-hora">≈ 11h40 · parada de 2h</span>
+            <span class="parada-coord">27°50'S · 48°37'W</span>
           </div>
-          <div class="stop-img split">
-            <img src="assets/pedras-altas.jpg" alt="Praia de Pedras Altas">
-            <img src="assets/gastronomia.jpg" alt="Gastronomia local servida durante o passeio">
+          <h3>Praia de Pedras Altas</h3>
+          <p>Passando pela Praia do Sonho e pelas fazendas de ostras, a rota chega numa praia praticamente particular. O almoço é no restaurante local, com tempo pra comer sem pressa e aproveitar a praia.</p>
+          <div class="aviso">O almoço não está incluso no valor do passeio. Você pode consumir no restaurante ou levar seu próprio lanche.</div>
+          <div class="duo">
+            <img src="assets/pedras-altas.jpg" alt="Praia de Pedras Altas" loading="lazy">
+            <img src="assets/gastronomia.jpg" alt="Gastronomia local: peixe com camarão, arroz e pirão" loading="lazy">
           </div>
         </div>
-      </div>
 
-      <div class="stop reveal">
-        <div class="stop-marker">5</div>
-        <div class="stop-body has-img">
-          <div>
-            <span class="tag">Retorno</span>
-            <h3>De volta à Caieira</h3>
-            <p>Voltamos para a Caieira da Barra do Sul encerrando um dia de natureza, cultura, mar calmo e boa comida — Floripa de um jeito autêntico.</p>
+        <div class="parada reveal" data-p="5">
+          <div class="parada-meta">
+            <span class="parada-hora">≈ 14h00 · chegada</span>
+            <span class="parada-coord">27°48'S · 48°33'W</span>
           </div>
-          <div class="stop-img"><img src="assets/retorno.jpg" alt="Vista do mar no retorno do passeio"></div>
+          <h3>De volta à Caieira</h3>
+          <p>O retorno fecha um dia de natureza, cultura, mar calmo e boa comida. Floripa de um jeito que pouca gente conhece.</p>
+          <img src="assets/retorno.jpg" alt="Vista do mar turquesa no retorno do passeio" loading="lazy">
         </div>
+
+        <p class="horario-nota">* Horários aproximados da saída das 08h. Na saída das 10h, some duas horas a cada ponto.</p>
       </div>
     </div>
   </div>
@@ -280,9 +382,9 @@
 <section class="real">
   <div class="wrap">
     <div class="reveal">
-      <h2>Sem encenação: é exatamente assim, ao vivo.</h2>
-      <p>Sem edição de estúdio, sem atores. Esse é um trecho real de um passeio, gravado durante a navegação.</p>
-      <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">Quero ir também</a>
+      <h2>Sem encenação. É assim, ao vivo.</h2>
+      <p>Trecho real de um passeio, gravado durante a navegação, com o guia contando as histórias da região.</p>
+      <button class="btn abrir-modal">Quero ir também</button>
     </div>
     <video src="assets/passeio-real.mp4" poster="assets/passeio-real-poster.jpg" controls playsinline></video>
   </div>
@@ -291,88 +393,167 @@
 <!-- PROVA SOCIAL -->
 <section class="social">
   <div class="wrap">
-    <div class="social-top reveal">
-      <h2>Quem já foi, recomenda.</h2>
-      <div class="stat-row">
-        <div class="stat"><b>5.0★</b><span>31 avaliações no Google</span></div>
-        <div class="stat"><b>5,4 mil</b><span>seguidores no Instagram</span></div>
+    <div class="social-grid">
+      <div class="nota-bloco reveal">
+        <h2>Quem já foi, recomenda.</h2>
+        <div class="nota-num">5.0</div>
+        <div class="nota-estrelas">★★★★★</div>
+        <span class="mono">31 avaliações públicas no Google · 5,4 mil no Instagram</span>
+        <a class="btn linha" href="https://www.google.com/maps/place/Ilhas+Do+Sul+Passeios/@-27.815183,-48.5629292,17z/data=!3m1!4b1!4m6!3m5!1s0x952729d40576db43:0xa4f2b6891dbd1055!8m2!3d-27.8151878!4d-48.5603543!16s%2Fg%2F11mz9qltcv" target="_blank" rel="noopener">Ler as avaliações no Google</a>
       </div>
-    </div>
-    <div class="quotes">
-      <div class="quote reveal">
-        <div class="stars">★★★★★</div>
-        <p>Um passageiro descreveu as paisagens do trajeto como as mais bonitas que já viu, com direito a mergulho em água transparente e parada pra almoçar num restaurante elogiado.</p>
-      </div>
-      <div class="quote reveal">
-        <div class="stars">★★★★★</div>
-        <p>Outra avaliação destacou o passeio como ótimo programa em família, com marinheiros educados e cheios de conhecimento sobre a região.</p>
-      </div>
-      <div class="quote reveal">
-        <div class="stars">★★★★★</div>
-        <p>Uma cliente contou que já indicou o passeio pra vários amigos e disse estar pronta pro próximo — chamando os marinheiros de atenciosos e cheios de curiosidades sobre a região.</p>
+      <div class="reveal">
+        <p class="depo-grande">Uma passageira chamou o trajeto de a melhor rota marítima de Floripa: parte histórica, banho de mar em água cristalina e um restaurante que ela fez questão de elogiar.</p>
+        <div class="depo-menores">
+          <p>Outra avaliação destacou o passeio como ótimo programa em família, com marinheiros educados e que conhecem a região de verdade.</p>
+          <p>E tem quem já tenha indicado pra vários amigos e diga estar pronta pro próximo, citando as curiosidades que a tripulação compartilha pelo caminho.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- INFO PRÁTICA -->
-<section class="info">
+<!-- FICHA -->
+<section class="ficha">
   <div class="wrap">
     <div class="reveal">
-      <h2>Informações práticas</h2>
-      <ul class="info-list">
-        <li><span>Duração</span><b>6 horas (8h–14h ou 10h–16h)</b></li>
-        <li><span>Valor</span><b>R$ 130 por pessoa</b></li>
-        <li><span>Saídas</span><b>Todos os dias, mediante agendamento</b></li>
-        <li><span>Vagas</span><b>Limitadas por saída</b></li>
-        <li><span>Grupos privados</span><b>Consultar disponibilidade</b></li>
-        <li><span>Ponto de encontro</span><b>Caieira da Barra do Sul</b></li>
+      <h2>Ficha do passeio</h2>
+      <ul class="ficha-lista">
+        <li><span class="mono">Duração</span><b>6 horas</b></li>
+        <li><span class="mono">Saídas</span><b>08h–14h ou 10h–16h, todos os dias</b></li>
+        <li><span class="mono">Valor</span><b>R$ 130 por pessoa</b></li>
+        <li><span class="mono">Agendamento</span><b>Pelo WhatsApp, com antecedência</b></li>
+        <li><span class="mono">Grupos privados</span><b>Consultar disponibilidade</b></li>
+        <li><span class="mono">Segurança</span><b>Normas da Marinha e Capitania dos Portos</b></li>
       </ul>
+      <span class="carimbo">Vagas limitadas por saída</span>
     </div>
-    <div class="map-card reveal">
-      <div>
-        <h3>Ponto de encontro</h3>
-        <p>Rod. Baldicero Filomeno, 20255 — Ribeirão da Ilha, Florianópolis - SC</p>
-      </div>
-      <a class="btn ghost" href="https://www.google.com/maps/place/Ilhas+Do+Sul+Passeios/@-27.815183,-48.5629292,17z/data=!3m1!4b1!4m6!3m5!1s0x952729d40576db43:0xa4f2b6891dbd1055!8m2!3d-27.8151878!4d-48.5603543!16s%2Fg%2F11mz9qltcv" target="_blank" rel="noopener">Ver no Google Maps</a>
+    <div class="encontro reveal">
+      <h3>Ponto de encontro</h3>
+      <span class="mono">27°48'54"S · 48°33'37"W</span>
+      <p>Rod. Baldicero Filomeno, 20255 · Ribeirão da Ilha, Florianópolis - SC</p>
+      <a class="btn linha" href="https://www.google.com/maps/place/Ilhas+Do+Sul+Passeios/@-27.815183,-48.5629292,17z/data=!3m1!4b1!4m6!3m5!1s0x952729d40576db43:0xa4f2b6891dbd1055!8m2!3d-27.8151878!4d-48.5603543!16s%2Fg%2F11mz9qltcv" target="_blank" rel="noopener">Abrir no Google Maps</a>
     </div>
   </div>
 </section>
 
 <!-- FECHAMENTO -->
 <section class="fechamento">
-  <img src="assets/sunset-barcos.jpg" alt="Pôr do sol com barcos ancorados na Caieira da Barra do Sul">
+  <img src="assets/sunset-barcos.jpg" alt="Pôr do sol com barcos ancorados na Caieira da Barra do Sul" loading="lazy">
 </section>
 
 <!-- CTA FINAL -->
 <section class="cta-final">
   <div class="wrap">
-    <h2 class="reveal">Vagas limitadas por saída. Chama e garante a sua.</h2>
-    <p class="reveal">Resposta rápida no WhatsApp, todos os dias.</p>
-    <a class="btn reveal" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor" style="width:19px;height:19px"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
-      Chamar no WhatsApp
-    </a>
+    <h2 class="reveal">O verão passa rápido. A vaga também.</h2>
+    <p class="reveal">Escolhe a data, diz quantas pessoas, e a gente confirma no WhatsApp.</p>
+    <button class="btn abrir-modal reveal">Agendar meu passeio</button>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">Ilhas do Sul Passeios · @ilhasdosulpasseios no Instagram</div>
+  <div class="wrap">ILHAS DO SUL PASSEIOS · @ilhasdosulpasseios · CAIEIRA DA BARRA DO SUL</div>
 </footer>
 
-<!-- STICKY WHATSAPP (mobile) -->
+<!-- STICKY (mobile) -->
 <div class="sticky-cta">
-  <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
-    Chamar no WhatsApp
-  </a>
+  <button class="btn abrir-modal">Agendar meu passeio</button>
+</div>
+
+<!-- MODAL QUALIFICAÇÃO -->
+<div class="modal-fundo" id="modalFundo" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+  <div class="modal">
+    <h3 id="modalTitulo">Agendar passeio</h3>
+    <span class="mono">Responda 3 coisas e a mensagem chega pronta no WhatsApp.</span>
+    <div class="campo">
+      <label for="fData">Qual data você quer?</label>
+      <input type="date" id="fData">
+    </div>
+    <div class="campo">
+      <label for="fPessoas">Quantas pessoas?</label>
+      <input type="number" id="fPessoas" min="1" max="30" placeholder="Ex: 4">
+    </div>
+    <div class="campo">
+      <label>Tipo de passeio</label>
+      <div class="tipo-opcoes">
+        <label><input type="radio" name="fTipo" value="Passeio regular" checked><span>Regular</span></label>
+        <label><input type="radio" name="fTipo" value="Grupo privado"><span>Grupo privado</span></label>
+      </div>
+    </div>
+    <button class="btn" id="enviarZap">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
+      Enviar no WhatsApp
+    </button>
+    <div class="modal-links">
+      <a href="https://wa.me/554891866991?text=Oi!%20Quero%20saber%20mais%20sobre%20o%20passeio%20de%20barco%20%F0%9F%9A%A4" target="_blank" rel="noopener">Prefiro chamar direto, sem preencher</a>
+      <br><br>
+      <button id="fecharModal">Fechar</button>
+    </div>
+  </div>
 </div>
 
 <script>
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-  },{threshold:.15});
+  // reveal on scroll
+  const io = new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // rota desenhando quando a carta entra na tela
+  const rota = document.getElementById('rota-linha');
+  if(rota){
+    const len = rota.getTotalLength();
+    rota.style.strokeDasharray = len;
+    rota.style.strokeDashoffset = len;
+    rota.style.transition = 'stroke-dashoffset 2.8s ease';
+    new IntersectionObserver((es,obs)=>{
+      es.forEach(e=>{ if(e.isIntersecting){
+        requestAnimationFrame(()=>{ rota.style.strokeDashoffset = 0; });
+        obs.disconnect();
+      }});
+    },{threshold:.35}).observe(document.getElementById('carta'));
+  }
+
+  // destaque do ponto no mapa conforme a parada visível
+  const pontos = document.querySelectorAll('#pontos .ponto');
+  function destaca(n){
+    pontos.forEach(p=>{
+      const on = p.dataset.p === String(n);
+      p.querySelector('circle').setAttribute('fill', on ? '#D63B2F' : '#F7F1E3');
+      p.querySelector('text').setAttribute('fill', on ? '#F7F1E3' : '#1B3A5C');
+    });
+  }
+  new IntersectionObserver((es)=>{
+    es.forEach(e=>{ if(e.isIntersecting){
+      destaca(Math.min(parseInt(e.target.dataset.p), 4));
+    }});
+  },{threshold:.5}).observe && document.querySelectorAll('.parada').forEach(el=>{
+    new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting) destaca(Math.min(parseInt(e.target.dataset.p),4)); });
+    },{threshold:.5}).observe(el);
+  });
+
+  // modal
+  const fundo = document.getElementById('modalFundo');
+  document.querySelectorAll('.abrir-modal').forEach(b=>b.addEventListener('click',()=>{
+    fundo.classList.add('aberto');
+    document.body.style.overflow = 'hidden';
+  }));
+  function fecha(){ fundo.classList.remove('aberto'); document.body.style.overflow = ''; }
+  document.getElementById('fecharModal').addEventListener('click', fecha);
+  fundo.addEventListener('click', e=>{ if(e.target === fundo) fecha(); });
+  document.addEventListener('keydown', e=>{ if(e.key === 'Escape') fecha(); });
+
+  // whatsapp qualificado
+  document.getElementById('enviarZap').addEventListener('click', ()=>{
+    const d = document.getElementById('fData').value;
+    const n = document.getElementById('fPessoas').value;
+    const t = document.querySelector('input[name=fTipo]:checked').value;
+    let msg = 'Oi! Quero agendar o passeio de barco 🚤';
+    if(d){ const [a,m,dia] = d.split('-'); msg += '\nData: ' + dia + '/' + m + '/' + a; }
+    if(n){ msg += '\nPessoas: ' + n; }
+    msg += '\nTipo: ' + t;
+    window.open('https://wa.me/554891866991?text=' + encodeURIComponent(msg), '_blank');
+  });
 </script>
 
 </body>
