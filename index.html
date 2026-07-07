@@ -1,0 +1,366 @@
+<!--
+  MAPA DO ARQUIVO
+  L1-40     head, meta, fonts, variáveis CSS
+  L41-160   reset + componentes base (botões, wrap, tags)
+  L161-260  hero
+  L261-320  pilares
+  L321-460  roteiro (timeline com linha de rota)
+  L461-520  vídeo real
+  L521-600  prova social
+  L601-680  info prática + mapa
+  L681-720  cta final + footer + sticky whatsapp
+  L721-fim  JS (reveal on scroll)
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ilhas do Sul Passeios — Passeio de barco no sul de Florianópolis</title>
+<meta name="description" content="Seis horas de barco pelo sul da Ilha de Santa Catarina, guiado por pescadores locais. Naufragados, Fortaleza de Araçatuba, Ponta do Papagaio e Pedras Altas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B1D2E;
+    --navy-2:#132A40;
+    --ink:#16232C;
+    --sand:#F3EDE1;
+    --sand-2:#EAE1D1;
+    --gold:#E2A24C;
+    --teal:#2E6E6B;
+    --white:#FFFFFF;
+    --muted:#7C8B94;
+    --display: 'Big Shoulders Display', sans-serif;
+    --body: 'Work Sans', sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);color:var(--ink);background:var(--sand);line-height:1.5;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;line-height:1.02}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gold);color:var(--navy);
+    font-family:var(--body);font-weight:600;font-size:16px;
+    padding:15px 28px;border-radius:999px;border:none;cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .btn:hover{background:#EFB565;transform:translateY(-1px)}
+  .btn.ghost{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,.55)}
+  .btn.ghost:hover{background:rgba(255,255,255,.1)}
+  .btn svg{width:19px;height:19px;flex-shrink:0}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;color:var(--white);overflow:hidden}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .hero::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(11,29,46,.15) 0%, rgba(11,29,46,.25) 45%, rgba(11,29,46,.92) 100%);
+  }
+  .hero-content{position:relative;z-index:2;padding:0 24px 64px;width:100%}
+  .hero-content .wrap{padding:0}
+  .hero h1{font-size:clamp(2.6rem, 6vw, 4.6rem);max-width:14ch;margin-bottom:20px}
+  .hero p{font-size:18px;max-width:46ch;opacity:.92;margin-bottom:32px}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
+
+  /* ---------- PILARES ---------- */
+  .pilares{background:var(--navy);color:var(--white);padding:26px 0}
+  .pilares .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 0;font-family:var(--body);font-size:15px;text-align:center}
+  .pilares span{padding:0 22px;opacity:.92}
+  .pilares span:not(:last-child){border-right:1px solid rgba(255,255,255,.25)}
+  @media(max-width:640px){.pilares span{border-right:none!important;padding:4px 14px}}
+
+  /* ---------- ROTEIRO ---------- */
+  .roteiro{padding:100px 0 70px;background:var(--sand)}
+  .roteiro-head{max-width:640px;margin-bottom:64px}
+  .roteiro-head h2{font-size:clamp(2rem,4.2vw,2.9rem);margin:12px 0 16px}
+  .roteiro-head p{color:var(--muted);font-size:17px}
+
+  .timeline{position:relative}
+  .timeline::before{
+    content:"";position:absolute;left:29px;top:6px;bottom:6px;width:2px;
+    background:repeating-linear-gradient(to bottom, var(--teal) 0 8px, transparent 8px 16px);
+  }
+  @media(max-width:760px){.timeline::before{left:19px}}
+
+  .stop{position:relative;padding-left:76px;margin-bottom:56px}
+  @media(max-width:760px){.stop{padding-left:52px;margin-bottom:44px}}
+  .stop:last-child{margin-bottom:0}
+  .stop-marker{
+    position:absolute;left:0;top:2px;width:60px;height:60px;border-radius:50%;
+    background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;
+    font-family:var(--display);font-weight:700;font-size:22px;border:3px solid var(--sand);
+  }
+  @media(max-width:760px){.stop-marker{width:40px;height:40px;font-size:15px}}
+  .stop-body{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
+  .stop:nth-child(even) .stop-body{grid-template-columns:.9fr 1.1fr}
+  .stop:nth-child(even) .stop-img{order:2}
+  @media(max-width:760px){.stop-body{grid-template-columns:1fr!important}.stop-img{order:0!important}}
+  .stop-img img{border-radius:6px;width:100%;height:230px;object-fit:cover}
+  .stop h3{font-size:22px;margin-bottom:10px;color:var(--navy)}
+  .stop p{color:#4A555C;font-size:15.5px}
+  .stop .tag{display:inline-block;background:var(--sand-2);color:var(--teal);font-size:12.5px;font-weight:600;
+    padding:4px 12px;border-radius:999px;margin-bottom:12px}
+  .stop .note{background:#FBF2DE;border-left:3px solid var(--gold);padding:10px 14px;font-size:14px;margin-top:12px;color:#6B5426}
+
+  /* ---------- VIDEO REAL ---------- */
+  .real{background:var(--navy);color:var(--white);padding:90px 0}
+  .real .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+  @media(max-width:800px){.real .wrap{grid-template-columns:1fr}}
+  .real h2{font-size:clamp(1.9rem,4vw,2.6rem);margin:12px 0 18px}
+  .real p{color:rgba(255,255,255,.78);font-size:16px;margin-bottom:26px;max-width:42ch}
+  .real video{width:100%;border-radius:10px;max-height:640px;object-fit:cover}
+
+  /* ---------- PROVA SOCIAL ---------- */
+  .social{padding:90px 0;background:var(--white)}
+  .social-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px}
+  .social-top h2{font-size:clamp(1.9rem,4vw,2.6rem)}
+  .stat-row{display:flex;gap:36px;flex-wrap:wrap}
+  .stat b{font-family:var(--display);font-size:2.1rem;color:var(--navy);display:block;line-height:1}
+  .stat span{font-size:13.5px;color:var(--muted)}
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media(max-width:860px){.quotes{grid-template-columns:1fr}}
+  .quote{background:var(--sand);padding:26px;border-radius:6px}
+  .quote p{font-size:15px;color:#3E4A52;margin-bottom:14px}
+  .quote .stars{color:var(--gold);font-size:14px;margin-bottom:10px}
+
+  /* ---------- INFO PRÁTICA ---------- */
+  .info{background:var(--sand-2);padding:90px 0}
+  .info .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  @media(max-width:800px){.info .wrap{grid-template-columns:1fr;gap:40px}}
+  .info h2{font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:26px}
+  .info-list{list-style:none}
+  .info-list li{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:15.5px}
+  .info-list li b{font-weight:600}
+  .info-list li span:first-child{color:var(--muted)}
+  .map-card{background:var(--navy);color:var(--white);border-radius:10px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:280px}
+  .map-card h3{font-size:20px;margin-bottom:10px}
+  .map-card p{color:rgba(255,255,255,.75);font-size:14.5px;margin-bottom:22px}
+
+  /* ---------- CTA FINAL ---------- */
+  .cta-final{background:var(--navy);color:var(--white);padding:100px 0;text-align:center}
+  .cta-final h2{font-size:clamp(2rem,5vw,3.2rem);max-width:16ch;margin:0 auto 18px}
+  .cta-final p{color:rgba(255,255,255,.78);margin-bottom:32px}
+
+  footer{background:var(--navy);color:rgba(255,255,255,.55);padding:26px 0 100px;text-align:center;font-size:13.5px;border-top:1px solid rgba(255,255,255,.08)}
+  footer a{color:var(--gold)}
+
+  /* ---------- STICKY WHATSAPP ---------- */
+  .sticky-cta{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    background:var(--navy);padding:12px 16px;display:flex;justify-content:center;
+    box-shadow:0 -6px 20px rgba(0,0,0,.2);
+  }
+  .sticky-cta .btn{width:100%;max-width:420px;justify-content:center}
+  @media(min-width:900px){.sticky-cta{display:none}}
+  body{padding-bottom:78px}
+  @media(min-width:900px){body{padding-bottom:0}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="assets/hero-guia.jpg" alt="Guia sorrindo com grupo de turistas no barco, pôr do sol ao fundo">
+  <div class="hero-content">
+    <div class="wrap">
+      <h1>O sul da ilha, visto do mar.</h1>
+      <p>Seis horas de barco saindo da Caieira da Barra do Sul, com pescadores locais como guia: do Farol dos Naufragados às águas cristalinas da Ponta do Papagaio.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
+          Chamar no WhatsApp
+        </a>
+        <a class="btn ghost" href="#roteiro">Ver o roteiro</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section class="pilares">
+  <div class="wrap">
+    <span>Guiado por pescadores locais</span>
+    <span>Tradição, cultura e história</span>
+    <span>Sul da Ilha, Floripa</span>
+  </div>
+</section>
+
+<!-- ROTEIRO -->
+<section class="roteiro" id="roteiro">
+  <div class="wrap">
+    <div class="roteiro-head reveal">
+      <h2>O roteiro: um dia inteiro navegando pelo sul da ilha.</h2>
+      <p>Seis horas de embarcação, contadas pelos mesmos pescadores que conhecem cada pedra dessa costa.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="stop reveal">
+        <div class="stop-marker">1</div>
+        <div class="stop-body">
+          <div>
+            <span class="tag">Início</span>
+            <h3>Farol dos Naufragados</h3>
+            <p>Saindo da Caieira da Barra do Sul, seguimos até a Praia dos Naufragados, com parada em frente ao farol. Ali o guia conta histórias da pesca da tainha e da cultura manezinha, parte viva da região.</p>
+          </div>
+          <div class="stop-img"><img src="assets/naufragados.jpg" alt="Costa rochosa com o farol dos Naufragados ao fundo"></div>
+        </div>
+      </div>
+
+      <div class="stop reveal">
+        <div class="stop-marker">2</div>
+        <div class="stop-body">
+          <div>
+            <span class="tag">Alto mar</span>
+            <h3>Fortaleza de Araçatuba</h3>
+            <p>Navegando em mar aberto, passamos em frente à Fortaleza de Araçatuba — uma aula de história ao ar livre, sem sair do barco.</p>
+          </div>
+          <div class="stop-img"><img src="assets/fortaleza.jpg" alt="Ruínas da Fortaleza de Araçatuba vistas do mar"></div>
+        </div>
+      </div>
+
+      <div class="stop reveal">
+        <div class="stop-marker">3</div>
+        <div class="stop-body">
+          <div>
+            <span class="tag">Mergulho · 1h</span>
+            <h3>Ponta do Papagaio</h3>
+            <p>Uma prainha pouco conhecida, de frente para a Ilha do Papagaio. Aqui o barco para por cerca de uma hora, com água cristalina e tranquilidade longe das praias cheias.</p>
+          </div>
+          <div class="stop-img"><img src="assets/papagaio.jpg" alt="Prainha isolada na Ponta do Papagaio"></div>
+        </div>
+      </div>
+
+      <div class="stop reveal">
+        <div class="stop-marker">4</div>
+        <div class="stop-body">
+          <div>
+            <span class="tag">Almoço · 2h</span>
+            <h3>Praia de Pedras Altas</h3>
+            <p>Passamos pela Praia do Sonho e por fazendas de ostras até chegar numa praia praticamente particular. O almoço é no Restaurante Pedras Altas, com parada de aproximadamente duas horas.</p>
+            <div class="note">O almoço não está incluso no passeio — você pode consumir no restaurante ou trazer seu próprio lanche.</div>
+          </div>
+          <div class="stop-img"><img src="assets/restaurante.jpg" alt="Restaurante à beira-mar em Pedras Altas"></div>
+        </div>
+      </div>
+
+      <div class="stop reveal">
+        <div class="stop-marker">5</div>
+        <div class="stop-body">
+          <div>
+            <span class="tag">Retorno</span>
+            <h3>De volta à Caieira</h3>
+            <p>Voltamos para a Caieira da Barra do Sul encerrando um dia de natureza, cultura, mar calmo e boa comida — Floripa de um jeito autêntico.</p>
+          </div>
+          <div class="stop-img"><img src="assets/comida.jpg" alt="Gastronomia local servida durante o passeio"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO REAL -->
+<section class="real">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Sem encenação: é exatamente assim, ao vivo.</h2>
+      <p>Sem edição de estúdio, sem atores. Esse é um trecho real de um passeio, gravado durante a navegação.</p>
+      <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">Quero ir também</a>
+    </div>
+    <video src="assets/passeio-real.mp4" poster="assets/passeio-real-poster.jpg" controls playsinline muted loop></video>
+  </div>
+</section>
+
+<!-- PROVA SOCIAL -->
+<section class="social">
+  <div class="wrap">
+    <div class="social-top reveal">
+      <h2>Quem já foi, recomenda.</h2>
+      <div class="stat-row">
+        <div class="stat"><b>5.0★</b><span>31 avaliações no Google</span></div>
+        <div class="stat"><b>5,4 mil</b><span>seguidores no Instagram</span></div>
+      </div>
+    </div>
+    <div class="quotes">
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>Um passageiro descreveu as paisagens do trajeto como as mais bonitas que já viu, com direito a mergulho em água transparente e parada pra almoçar num restaurante elogiado.</p>
+      </div>
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>Outra avaliação destacou o passeio como ótimo programa em família, com marinheiros educados e cheios de conhecimento sobre a região.</p>
+      </div>
+      <div class="quote reveal">
+        <div class="stars">★★★★★</div>
+        <p>Uma cliente contou que já indicou o passeio pra vários amigos e disse estar pronta pro próximo — chamando os marinheiros de atenciosos e cheios de curiosidades sobre a região.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO PRÁTICA -->
+<section class="info">
+  <div class="wrap">
+    <div class="reveal">
+      <h2>Informações práticas</h2>
+      <ul class="info-list">
+        <li><span>Duração</span><b>6 horas (8h–14h ou 10h–16h)</b></li>
+        <li><span>Valor</span><b>R$ 130 por pessoa</b></li>
+        <li><span>Saídas</span><b>Todos os dias, mediante agendamento</b></li>
+        <li><span>Vagas</span><b>Limitadas por saída</b></li>
+        <li><span>Grupos privados</span><b>Consultar disponibilidade</b></li>
+        <li><span>Ponto de encontro</span><b>Caieira da Barra do Sul</b></li>
+      </ul>
+    </div>
+    <div class="map-card reveal">
+      <div>
+        <h3>Ponto de encontro</h3>
+        <p>Rod. Baldicero Filomeno, 20255 — Ribeirão da Ilha, Florianópolis - SC</p>
+      </div>
+      <a class="btn ghost" href="https://www.google.com/maps/place/27%C2%B048'54.1%22S+48%C2%B033'37.1%22W/@-27.8150159,-48.5628734,17z" target="_blank" rel="noopener">Ver no Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="wrap">
+    <h2 class="reveal">Vagas limitadas por saída. Chama e garante a sua.</h2>
+    <p class="reveal">Resposta rápida no WhatsApp, todos os dias.</p>
+    <a class="btn reveal" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:19px;height:19px"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
+      Chamar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Ilhas do Sul Passeios · @ilhasdosulpasseios no Instagram</div>
+</footer>
+
+<!-- STICKY WHATSAPP (mobile) -->
+<div class="sticky-cta">
+  <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.07-1.33A9.96 9.96 0 0012 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.2-1.77 1.24-.45.05-.9.24-3.02-.63-2.55-1.05-4.2-3.63-4.33-3.8-.13-.17-1.03-1.37-1.03-2.6 0-1.24.65-1.84.88-2.1.22-.24.5-.3.66-.3.16 0 .33 0 .47.01.15.01.35-.06.55.42.22.53.74 1.83.8 1.96.06.13.1.28.02.45-.08.17-.13.28-.25.43-.13.15-.27.34-.38.46-.13.13-.26.27-.11.53.15.27.66 1.1 1.43 1.78.98.88 1.8 1.15 2.07 1.28.27.13.43.11.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.44.2.5.31.06.11.06.63-.16 1.25z"/></svg>
+    Chamar no WhatsApp
+  </a>
+</div>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
