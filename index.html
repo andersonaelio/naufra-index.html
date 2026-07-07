@@ -101,11 +101,15 @@
     font-family:var(--display);font-weight:700;font-size:22px;border:3px solid var(--sand);
   }
   @media(max-width:760px){.stop-marker{width:40px;height:40px;font-size:15px}}
-  .stop-body{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
-  .stop:nth-child(even) .stop-body{grid-template-columns:.9fr 1.1fr}
+  .stop-body{max-width:62ch}
+  .stop-body.has-img{max-width:none;display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
+  .stop:nth-child(even) .stop-body.has-img{grid-template-columns:.9fr 1.1fr}
   .stop:nth-child(even) .stop-img{order:2}
-  @media(max-width:760px){.stop-body{grid-template-columns:1fr!important}.stop-img{order:0!important}}
+  @media(max-width:760px){.stop-body.has-img{grid-template-columns:1fr!important}.stop-img{order:0!important}}
+  .stop-img{display:flex;flex-direction:column;gap:10px}
+  .stop-img.split{flex-direction:row}
   .stop-img img{border-radius:6px;width:100%;height:230px;object-fit:cover}
+  .stop-img.split img{height:230px;width:calc(50% - 5px)}
   .stop h3{font-size:22px;margin-bottom:10px;color:var(--navy)}
   .stop p{color:#4A555C;font-size:15.5px}
   .stop .tag{display:inline-block;background:var(--sand-2);color:var(--teal);font-size:12.5px;font-weight:600;
@@ -145,6 +149,10 @@
   .map-card{background:var(--navy);color:var(--white);border-radius:10px;padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:280px}
   .map-card h3{font-size:20px;margin-bottom:10px}
   .map-card p{color:rgba(255,255,255,.75);font-size:14.5px;margin-bottom:22px}
+
+  /* ---------- FECHAMENTO ---------- */
+  .fechamento{line-height:0}
+  .fechamento img{width:100%;max-height:78vh;object-fit:cover;display:block}
 
   /* ---------- CTA FINAL ---------- */
   .cta-final{background:var(--navy);color:var(--white);padding:100px 0;text-align:center}
@@ -207,61 +215,61 @@
       <div class="stop reveal">
         <div class="stop-marker">1</div>
         <div class="stop-body">
-          <div>
-            <span class="tag">Início</span>
-            <h3>Farol dos Naufragados</h3>
-            <p>Saindo da Caieira da Barra do Sul, seguimos até a Praia dos Naufragados, com parada em frente ao farol. Ali o guia conta histórias da pesca da tainha e da cultura manezinha, parte viva da região.</p>
-          </div>
-          <div class="stop-img"><img src="assets/naufragados.jpg" alt="Costa rochosa com o farol dos Naufragados ao fundo"></div>
+          <span class="tag">Início</span>
+          <h3>Farol dos Naufragados</h3>
+          <p>Saindo da Caieira da Barra do Sul, seguimos até a Praia dos Naufragados, com parada em frente ao farol. Ali o guia conta histórias da pesca da tainha e da cultura manezinha, parte viva da região.</p>
         </div>
       </div>
 
       <div class="stop reveal">
         <div class="stop-marker">2</div>
-        <div class="stop-body">
+        <div class="stop-body has-img">
           <div>
             <span class="tag">Alto mar</span>
             <h3>Fortaleza de Araçatuba</h3>
             <p>Navegando em mar aberto, passamos em frente à Fortaleza de Araçatuba — uma aula de história ao ar livre, sem sair do barco.</p>
           </div>
-          <div class="stop-img"><img src="assets/fortaleza.jpg" alt="Ruínas da Fortaleza de Araçatuba vistas do mar"></div>
+          <div class="stop-img"><img src="assets/fortaleza.jpg" alt="Fortaleza de Araçatuba vista do mar"></div>
         </div>
       </div>
 
       <div class="stop reveal">
         <div class="stop-marker">3</div>
-        <div class="stop-body">
+        <div class="stop-body has-img">
           <div>
             <span class="tag">Mergulho · 1h</span>
             <h3>Ponta do Papagaio</h3>
             <p>Uma prainha pouco conhecida, de frente para a Ilha do Papagaio. Aqui o barco para por cerca de uma hora, com água cristalina e tranquilidade longe das praias cheias.</p>
           </div>
-          <div class="stop-img"><img src="assets/papagaio.jpg" alt="Prainha isolada na Ponta do Papagaio"></div>
+          <div class="stop-img"><img src="assets/papagaio.jpg" alt="Prainha na Ponta do Papagaio com água cristalina"></div>
         </div>
       </div>
 
       <div class="stop reveal">
         <div class="stop-marker">4</div>
-        <div class="stop-body">
+        <div class="stop-body has-img">
           <div>
             <span class="tag">Almoço · 2h</span>
             <h3>Praia de Pedras Altas</h3>
             <p>Passamos pela Praia do Sonho e por fazendas de ostras até chegar numa praia praticamente particular. O almoço é no Restaurante Pedras Altas, com parada de aproximadamente duas horas.</p>
             <div class="note">O almoço não está incluso no passeio — você pode consumir no restaurante ou trazer seu próprio lanche.</div>
           </div>
-          <div class="stop-img"><img src="assets/restaurante.jpg" alt="Restaurante à beira-mar em Pedras Altas"></div>
+          <div class="stop-img split">
+            <img src="assets/pedras-altas.jpg" alt="Praia de Pedras Altas">
+            <img src="assets/gastronomia.jpg" alt="Gastronomia local servida durante o passeio">
+          </div>
         </div>
       </div>
 
       <div class="stop reveal">
         <div class="stop-marker">5</div>
-        <div class="stop-body">
+        <div class="stop-body has-img">
           <div>
             <span class="tag">Retorno</span>
             <h3>De volta à Caieira</h3>
             <p>Voltamos para a Caieira da Barra do Sul encerrando um dia de natureza, cultura, mar calmo e boa comida — Floripa de um jeito autêntico.</p>
           </div>
-          <div class="stop-img"><img src="assets/comida.jpg" alt="Gastronomia local servida durante o passeio"></div>
+          <div class="stop-img"><img src="assets/retorno.jpg" alt="Vista do mar no retorno do passeio"></div>
         </div>
       </div>
     </div>
@@ -276,7 +284,7 @@
       <p>Sem edição de estúdio, sem atores. Esse é um trecho real de um passeio, gravado durante a navegação.</p>
       <a class="btn" href="https://wa.me/554891866991?text=Oi!%20Vi%20o%20passeio%20de%20barco%20no%20Instagram%20e%20quero%20saber%20mais%20%F0%9F%9A%A4" target="_blank" rel="noopener">Quero ir também</a>
     </div>
-    <video src="assets/passeio-real.mp4" poster="assets/passeio-real-poster.jpg" controls playsinline muted loop></video>
+    <video src="assets/passeio-real.mp4" poster="assets/passeio-real-poster.jpg" controls playsinline></video>
   </div>
 </section>
 
@@ -326,9 +334,14 @@
         <h3>Ponto de encontro</h3>
         <p>Rod. Baldicero Filomeno, 20255 — Ribeirão da Ilha, Florianópolis - SC</p>
       </div>
-      <a class="btn ghost" href="https://www.google.com/maps/place/27%C2%B048'54.1%22S+48%C2%B033'37.1%22W/@-27.8150159,-48.5628734,17z" target="_blank" rel="noopener">Ver no Google Maps</a>
+      <a class="btn ghost" href="https://www.google.com/maps/place/Ilhas+Do+Sul+Passeios/@-27.815183,-48.5629292,17z/data=!3m1!4b1!4m6!3m5!1s0x952729d40576db43:0xa4f2b6891dbd1055!8m2!3d-27.8151878!4d-48.5603543!16s%2Fg%2F11mz9qltcv" target="_blank" rel="noopener">Ver no Google Maps</a>
     </div>
   </div>
+</section>
+
+<!-- FECHAMENTO -->
+<section class="fechamento">
+  <img src="assets/sunset-barcos.jpg" alt="Pôr do sol com barcos ancorados na Caieira da Barra do Sul">
 </section>
 
 <!-- CTA FINAL -->
