@@ -69,7 +69,7 @@
   .reveal.in{opacity:1;transform:none}
   @media (prefers-reduced-motion: reduce){
     .reveal{opacity:1;transform:none;transition:none}
-    #rota-linha{stroke-dashoffset:0 !important;transition:none !important}
+    #barquinho{display:none}
   }
 
   /* ---------- HERO ---------- */
@@ -326,6 +326,16 @@
             <!-- rota (desenhada no scroll) -->
             <path id="rota-linha" d="M508,178 C494,240 480,300 486,368 C490,408 486,428 476,446 C450,486 400,502 372,494 C348,488 330,472 300,468 C264,462 232,452 210,452 C196,452 184,436 178,414"
               fill="none" stroke="#D63B2F" stroke-width="2.6" stroke-dasharray="7 7" stroke-linecap="round"/>
+            <!-- caminho completo invisível: ida pela costa + volta reta pelo canal -->
+            <path id="rota-ciclo" d="M508,178 C494,240 480,300 486,368 C490,408 486,428 476,446 C450,486 400,502 372,494 C348,488 330,472 300,468 C264,462 232,452 210,452 C196,452 184,436 178,414 C230,360 330,300 430,240 C458,222 486,200 508,178"
+              fill="none" stroke="none"/>
+            <!-- barquinho navegando a rota em loop -->
+            <g id="barquinho">
+              <path d="M9,0 L-7,5 L-4,0 L-7,-5 Z" fill="#D63B2F" stroke="#F7F1E3" stroke-width="1.4"/>
+              <animateMotion dur="26s" repeatCount="indefinite" rotate="auto">
+                <mpath href="#rota-ciclo"/>
+              </animateMotion>
+            </g>
             <!-- retorno pontilhado leve -->
             <path d="M178,414 C230,360 330,300 430,240 C458,222 486,200 508,178"
               fill="none" stroke="#D63B2F" stroke-opacity=".38" stroke-width="1.6" stroke-dasharray="2 8" stroke-linecap="round"/>
@@ -551,26 +561,6 @@
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-  // rota desenhando quando a carta entra na tela
-  const rota = document.getElementById('rota-linha');
-  if(rota){
-    const len = rota.getTotalLength();
-    rota.style.strokeDasharray = len;
-    rota.style.strokeDashoffset = len;
-    rota.style.transition = 'stroke-dashoffset 2.8s ease';
-    rota.addEventListener('transitionend', ()=>{
-      rota.style.transition = 'none';
-      rota.style.strokeDasharray = '7 7';   // volta ao tracejado de carta
-      rota.style.strokeDashoffset = '0';
-    }, {once:true});
-    new IntersectionObserver((es,obs)=>{
-      es.forEach(e=>{ if(e.isIntersecting){
-        requestAnimationFrame(()=>{ rota.style.strokeDashoffset = 0; });
-        obs.disconnect();
-      }});
-    },{threshold:.35}).observe(document.getElementById('carta'));
-  }
 
   // destaque do ponto no mapa conforme a parada visível
   const pontos = document.querySelectorAll('#pontos .ponto');
