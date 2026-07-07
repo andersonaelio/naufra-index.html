@@ -24,9 +24,10 @@
 <meta property="og:description" content="6 horas de barco com pescadores locais. R$130 por pessoa, saídas todos os dias da Caieira da Barra do Sul.">
 <meta property="og:image" content="assets/hero-guia.jpg">
 <meta property="og:type" content="website">
+<link rel="preload" as="image" href="assets/hero-barco.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700;800&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --papel:#F7F1E3;
@@ -36,7 +37,7 @@
     --boia:#D63B2F;
     --boia-escura:#B22F25;
     --agua:#2FA8A0;
-    --display:'Big Shoulders Stencil Display', sans-serif;
+    --display:'Big Shoulders Display', sans-serif;
     --body:'Archivo', sans-serif;
     --mono:'IBM Plex Mono', monospace;
   }
@@ -76,15 +77,26 @@
   .hero-foto{position:absolute;inset:0;overflow:hidden}
   .hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
   .hero-foto::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(20,35,50,.35) 0%, rgba(20,35,50,.05) 40%, rgba(20,35,50,.72) 100%)}
+    background:linear-gradient(180deg, rgba(20,35,50,.35) 0%, rgba(20,35,50,.05) 40%, rgba(20,35,50,.72) 100%),
+               linear-gradient(100deg, rgba(20,35,50,.42) 0%, rgba(20,35,50,0) 55%)}
   .carta-header{position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.35)}
   .carta-header .wrap{display:flex;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
   .carta-header span{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
   @media(max-width:640px){.carta-header span:nth-child(2){display:none}}
+  .hero-marca{
+    position:relative;z-index:2;text-align:center;padding:38px 24px 0;
+    font-family:var(--display);font-weight:800;text-transform:uppercase;
+    font-size:clamp(1.4rem,4vw,2.6rem);color:#fff;letter-spacing:.03em;line-height:1;
+    text-shadow:0 4px 30px rgba(0,0,0,.35);opacity:0;transition:opacity 1.4s ease;
+  }
+  .hero-marca span{display:block;font-weight:600;font-size:.4em;letter-spacing:.34em;margin-top:8px}
+  .hero-marca.in{opacity:1}
   .hero-main{position:relative;z-index:2;margin-top:auto;padding:0 0 56px}
   .hero-main h1{font-size:clamp(3rem, 8vw, 6rem);max-width:12ch;margin-bottom:18px;text-shadow:0 2px 24px rgba(0,0,0,.25)}
   .hero-main p{font-size:17.5px;max-width:44ch;margin-bottom:30px;text-shadow:0 1px 12px rgba(0,0,0,.3)}
   .hero-ctas{display:flex;flex-wrap:wrap;gap:14px}
+  .hero-urgencia{font-family:var(--mono);font-size:12px;letter-spacing:.05em;margin-top:16px;
+    color:rgba(255,255,255,.85);text-shadow:0 1px 8px rgba(0,0,0,.4)}
 
   /* ---------- LEGENDA ---------- */
   .legenda{background:var(--papel);border-bottom:1px solid rgba(27,58,92,.18)}
@@ -97,10 +109,9 @@
   .roteiro-head{max-width:660px;margin-bottom:56px}
   .roteiro-head h2{font-size:clamp(2.2rem,5vw,3.4rem);margin-bottom:14px}
   .roteiro-head p{color:var(--tinta-clara);font-size:16.5px}
-  .roteiro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:64px;align-items:start}
-  @media(max-width:900px){.roteiro-grid{grid-template-columns:1fr;gap:44px}}
-  .mapa-col{position:sticky;top:24px}
-  @media(max-width:900px){.mapa-col{position:static}}
+  .roteiro-grid{display:flex;flex-direction:column;gap:56px}
+  .mapa-col{max-width:620px;margin:0 auto;width:100%}
+  .paradas-col{max-width:760px;margin:0 auto;width:100%}
   .mapa-moldura{background:var(--papel-2);border:1.5px solid var(--tinta);padding:14px;
     box-shadow:5px 5px 0 rgba(27,58,92,.14)}
   .mapa-moldura svg{width:100%;height:auto;display:block}
@@ -121,13 +132,20 @@
     border-left:3px solid #C9992E;max-width:56ch}
   .horario-nota{font-family:var(--mono);font-size:11.5px;color:var(--tinta-clara);margin-top:28px}
 
+  /* ---------- PAUSA (grupo) ---------- */
+  .pausa{position:relative;line-height:0;border-top:1.5px solid var(--tinta)}
+  .pausa img{width:100%;max-height:80vh;object-fit:cover}
+  .pausa-legenda{position:absolute;left:24px;bottom:20px;color:#fff;font-family:var(--mono);
+    font-size:12px;letter-spacing:.05em;text-shadow:0 1px 10px rgba(0,0,0,.5)}
+
   /* ---------- VIDEO REAL ---------- */
   .real{background:var(--tinta);color:var(--papel);padding:84px 0}
-  .real .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
-  @media(max-width:820px){.real .wrap{grid-template-columns:1fr}}
+  .real .wrap{display:grid;grid-template-columns:.9fr .6fr;gap:56px;align-items:center;justify-content:center}
+  @media(max-width:820px){.real .wrap{grid-template-columns:1fr;justify-items:center}}
   .real h2{font-size:clamp(2rem,4.5vw,3rem);margin-bottom:16px}
   .real p{color:rgba(247,241,227,.82);font-size:16px;margin-bottom:26px;max-width:44ch}
-  .real video{width:100%;border:1.5px solid rgba(247,241,227,.5);max-height:620px;object-fit:cover;background:#0e2033}
+  .video-col{justify-self:center;width:100%;max-width:320px}
+  .real video{width:100%;border:1.5px solid rgba(247,241,227,.5);aspect-ratio:9/16;object-fit:cover;background:#0e2033}
 
   /* ---------- PROVA SOCIAL ---------- */
   .social{padding:90px 0;background:var(--papel)}
@@ -205,7 +223,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-foto"><img src="assets/hero-guia.jpg" alt="Guia e grupo sorrindo no barco, pôr do sol no sul da ilha"></div>
+  <div class="hero-foto"><img src="assets/hero-barco.jpg" alt="Barco Maria Luísa ancorado ao pôr do sol, no sul da ilha"></div>
   <div class="carta-header">
     <div class="wrap">
       <span>Carta Nº 01 · Passeio Ilhas do Sul</span>
@@ -213,6 +231,7 @@
       <span>27°48'54"S · 48°33'37"W</span>
     </div>
   </div>
+  <div class="hero-marca" id="heroMarca">Ilhas do Sul <span>Passeios</span></div>
   <div class="hero-main">
     <div class="wrap">
       <h1>O sul da ilha, visto do mar.</h1>
@@ -224,6 +243,7 @@
         </button>
         <a class="btn linha" style="color:#fff;border-color:rgba(255,255,255,.7)" href="#roteiro">Ver a rota</a>
       </div>
+      <p class="hero-urgencia">R$130 por pessoa · saídas todos os dias · vagas limitadas por saída</p>
     </div>
   </div>
 </section>
@@ -284,6 +304,25 @@
               <path d="M0,24 L4,4 L-4,4 Z" fill="#D63B2F" stroke="#D63B2F"/>
               <text y="-30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" stroke="none">N</text>
             </g>
+            <!-- nomes das terras -->
+            <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#5A7186" letter-spacing="3">
+              <text x="30" y="250" transform="rotate(-90 30 250)" text-anchor="middle">CONTINENTE</text>
+              <text x="560" y="290" transform="rotate(90 560 290)" text-anchor="middle">ILHA DE STA CATARINA</text>
+            </g>
+            <!-- âncora na caieira -->
+            <g transform="translate(542,204)" stroke="#1B3A5C" stroke-width="1.6" fill="none">
+              <circle cx="0" cy="-7" r="2.6"/>
+              <line x1="0" y1="-4.4" x2="0" y2="8"/>
+              <line x1="-5" y1="-1" x2="5" y2="-1"/>
+              <path d="M-6,4 C-5,8.5 -2.5,10.5 0,10.5 C2.5,10.5 5,8.5 6,4"/>
+            </g>
+            <!-- marcas de onda -->
+            <g stroke="#5A7186" stroke-width="1.1" fill="none" opacity=".5">
+              <path d="M270,180 q6,-5 12,0 q6,5 12,0"/>
+              <path d="M380,340 q6,-5 12,0 q6,5 12,0"/>
+              <path d="M220,600 q6,-5 12,0 q6,5 12,0"/>
+              <path d="M300,660 q6,-5 12,0 q6,5 12,0"/>
+            </g>
             <!-- rota (desenhada no scroll) -->
             <path id="rota-linha" d="M508,178 C494,240 480,300 486,368 C490,408 486,428 476,446 C450,486 400,502 372,494 C348,488 330,472 300,468 C264,462 232,452 210,452 C196,452 184,436 178,414"
               fill="none" stroke="#D63B2F" stroke-width="2.6" stroke-dasharray="7 7" stroke-linecap="round"/>
@@ -309,7 +348,7 @@
             <!-- bloco de título -->
             <g transform="translate(354,614)">
               <rect width="228" height="86" fill="#F7F1E3" stroke="#1B3A5C" stroke-width="1.4"/>
-              <text x="14" y="24" font-family="Big Shoulders Stencil Display, sans-serif" font-weight="800" font-size="19" fill="#1B3A5C">PASSEIO ILHAS DO SUL</text>
+              <text x="14" y="24" font-family="Big Shoulders Display, sans-serif" font-weight="800" font-size="19" fill="#1B3A5C">PASSEIO ILHAS DO SUL</text>
               <text x="14" y="44" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5A7186">ROTA REGULAR · 6 HORAS</text>
               <text x="14" y="60" font-family="IBM Plex Mono, monospace" font-size="10" fill="#5A7186">SAÍDAS 08H00 / 10H00</text>
               <text x="14" y="76" font-family="IBM Plex Mono, monospace" font-size="10" fill="#D63B2F">VAGAS LIMITADAS POR SAÍDA</text>
@@ -378,6 +417,12 @@
   </div>
 </section>
 
+<!-- PAUSA -->
+<section class="pausa">
+  <img src="assets/grupo-guia.jpg" alt="Guia e grupo de turistas sorrindo no barco, pôr do sol ao fundo">
+  <span class="pausa-legenda">A tripulação que te leva</span>
+</section>
+
 <!-- VIDEO REAL -->
 <section class="real">
   <div class="wrap">
@@ -386,7 +431,10 @@
       <p>Trecho real de um passeio, gravado durante a navegação, com o guia contando as histórias da região.</p>
       <button class="btn abrir-modal">Quero ir também</button>
     </div>
-    <video src="assets/passeio-real.mp4" poster="assets/passeio-real-poster.jpg" controls playsinline></video>
+    <div class="video-col">
+      <video src="assets/passeio-real.mp4" poster="assets/passeio-real-poster.jpg" controls playsinline></video>
+      <span class="mono" style="display:block;text-align:center;margin-top:10px;color:rgba(247,241,227,.6)">Reel de um passeio real · 1min47</span>
+    </div>
   </div>
 </section>
 
@@ -456,7 +504,7 @@
 
 <!-- STICKY (mobile) -->
 <div class="sticky-cta">
-  <button class="btn abrir-modal">Agendar meu passeio</button>
+  <button class="btn abrir-modal">Agendar · R$130 por pessoa</button>
 </div>
 
 <!-- MODAL QUALIFICAÇÃO -->
@@ -492,6 +540,12 @@
 </div>
 
 <script>
+  // marca aparece depois de 3s no hero
+  setTimeout(()=>{
+    const m = document.getElementById('heroMarca');
+    if(m) m.classList.add('in');
+  }, 3000);
+
   // reveal on scroll
   const io = new IntersectionObserver((es)=>{
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -505,6 +559,11 @@
     rota.style.strokeDasharray = len;
     rota.style.strokeDashoffset = len;
     rota.style.transition = 'stroke-dashoffset 2.8s ease';
+    rota.addEventListener('transitionend', ()=>{
+      rota.style.transition = 'none';
+      rota.style.strokeDasharray = '7 7';   // volta ao tracejado de carta
+      rota.style.strokeDashoffset = '0';
+    }, {once:true});
     new IntersectionObserver((es,obs)=>{
       es.forEach(e=>{ if(e.isIntersecting){
         requestAnimationFrame(()=>{ rota.style.strokeDashoffset = 0; });
@@ -544,8 +603,10 @@
   document.addEventListener('keydown', e=>{ if(e.key === 'Escape') fecha(); });
 
   // whatsapp qualificado
+  const campoData = document.getElementById('fData');
+  campoData.min = new Date().toISOString().split('T')[0];
   document.getElementById('enviarZap').addEventListener('click', ()=>{
-    const d = document.getElementById('fData').value;
+    const d = campoData.value;
     const n = document.getElementById('fPessoas').value;
     const t = document.querySelector('input[name=fTipo]:checked').value;
     let msg = 'Oi! Quero agendar o passeio de barco 🚤';
