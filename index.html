@@ -5,7 +5,7 @@
   1. HERO ............ vídeo da proa, tela cheia
   2. PILARES ......... faixa estática de credenciais
   3. O DIA ........... 6 capítulos com mídia clicável -> abre painel de profundidade
-  4. GOLFINHOS ....... clímax, vídeo tela cheia
+  4. GOLFINHOS ....... clímax, card com vídeo vertical
   5. CTA-MEIO ........ chamada após o clímax
   6. SOCIAL .......... 5.0 / 31 avaliações Google
   7. FICHA ........... tabela do passeio + ponto de encontro
@@ -124,21 +124,21 @@
   .aviso{font-size:13.5px;color:#7A5A1E;background:#F3E4BC;padding:11px 15px;margin-top:6px;
     border-left:3px solid #C9992E;max-width:46ch}
 
-  /* ---------- 4. GOLFINHOS ---------- */
-  .uau{position:relative;min-height:92vh;min-height:92svh;display:flex;align-items:center;
-    overflow:hidden;color:var(--papel);border-top:1.5px solid var(--tinta)}
-  .uau video, .uau>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .uau::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg, rgba(6,26,34,.58) 0%, rgba(6,26,34,.30) 42%, rgba(6,26,34,.86) 100%)}
-  .uau .wrap{position:relative;z-index:3;padding-top:60px;padding-bottom:60px}
-  .uau .mono{color:rgba(247,241,227,.82);display:block;margin-bottom:16px;
+  /* ---------- 4. GOLFINHOS (card, vídeo vertical em tamanho contido) ---------- */
+  .uau{background:#0E2430;color:var(--papel);padding:clamp(60px,9vw,100px) 0;
+    border-top:1.5px solid var(--tinta)}
+  .uau-grid{display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,5vw,60px);align-items:center}
+  @media(max-width:860px){.uau-grid{grid-template-columns:1fr;gap:26px;justify-items:center}}
+  .uau-video{width:min(400px,80vw);flex:none;border:1.5px solid rgba(247,241,227,.32);
+    box-shadow:9px 9px 0 rgba(0,0,0,.3);line-height:0}
+  .uau-video video{width:100%;height:auto;display:block}
+  .uau .mono{color:rgba(247,241,227,.75);display:block;margin-bottom:16px;
     text-transform:uppercase;letter-spacing:.18em}
-  .uau h2{font-size:clamp(2.6rem,7.4vw,5.4rem);max-width:15ch;margin-bottom:20px;
-    text-shadow:0 2px 6px rgba(0,0,0,.5)}
-  .uau p{font-size:clamp(16px,2vw,19px);max-width:44ch;color:rgba(247,241,227,.94);
-    text-shadow:0 1px 4px rgba(0,0,0,.5)}
-  .uau .honesto{margin-top:22px;font-family:var(--mono);font-size:13px;
-    color:rgba(247,241,227,.8);border-left:2px solid var(--boia);padding-left:14px;max-width:40ch}
+  .uau h2{font-size:clamp(2rem,4.8vw,3.4rem);max-width:16ch;margin-bottom:20px}
+  .uau p{font-size:clamp(16px,1.9vw,18px);max-width:44ch;color:rgba(247,241,227,.9);margin-bottom:18px}
+  .uau .honesto{font-family:var(--mono);font-size:14px;line-height:1.65;
+    color:rgba(247,241,227,.74);border-left:2px solid var(--boia);padding-left:16px;
+    max-width:42ch;margin-bottom:0}
 
   /* ---------- 5. CTA-MEIO ---------- */
   .cta-meio{background:var(--tinta);color:var(--papel);padding:clamp(56px,8vw,84px) 0;text-align:center}
@@ -274,9 +274,7 @@
 
 <!-- 1. HERO -->
 <header class="hero">
-  <video autoplay muted loop playsinline poster="assets/hero-barco.jpg">
-    <source src="assets/proa.mp4" type="video/mp4">
-  </video>
+  <img src="assets/hero-barco.jpg" alt="Barco Maria Luísa ancorado ao pôr do sol na Caieira da Barra do Sul" fetchpriority="high">
   <div class="hero-topo">
     <span>ILHAS DO SUL · PASSEIOS</span>
     <span>CAIEIRA DA BARRA DO SUL · FLORIANÓPOLIS</span>
@@ -409,14 +407,18 @@
 
 <!-- 4. GOLFINHOS -->
 <section class="uau">
-  <video autoplay muted loop playsinline poster="assets/golfinhos-poster.jpg">
-    <source src="assets/golfinhos.mp4" type="video/mp4">
-  </video>
-  <div class="wrap">
-    <span class="mono">Gravado a bordo, num passeio comum</span>
-    <h2>E aí eles aparecem do lado do barco.</h2>
-    <p>Golfinhos acompanham a embarcação em boa parte do trajeto de volta. Ninguém chama, ninguém alimenta, ninguém encena — eles simplesmente vêm.</p>
-    <p class="honesto">Não dá pra prometer que vai acontecer no seu dia. Mas quando acontece, é exatamente assim.</p>
+  <div class="wrap uau-grid">
+    <div class="uau-video reveal">
+      <video autoplay muted loop playsinline poster="assets/golfinhos-poster.jpg">
+        <source src="assets/golfinhos.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="uau-texto reveal">
+      <span class="mono">Gravado a bordo, num passeio comum</span>
+      <h2>Com sorte, eles aparecem do lado do barco.</h2>
+      <p>Golfinhos vivem nessa parte do mar e às vezes acompanham a embarcação no trajeto de volta. Ninguém chama, ninguém alimenta, ninguém encena.</p>
+      <p class="honesto">Não é atração do passeio e não tem como prometer: pode ser que apareçam, pode ser que não. Depende do dia, da maré e de um bocado de sorte. Quando dá certo, é assim que é.</p>
+    </div>
   </div>
 </section>
 
@@ -731,15 +733,18 @@
     p6: {
       kicker: 'Retorno · ≈14h00',
       titulo: 'A volta pelo mar aberto',
-      media: {tipo:'img', src:'assets/grupo-guia.jpg', alt:'Tripulação e passageiros no retorno'},
+      media: {tipo:'video', src:'assets/proa.mp4', poster:'assets/grupo-guia.jpg'},
       texto: [
         'A volta não refaz o caminho da ida: o barco corta direto pelo canal, em mar aberto, de Pedras Altas até a Caieira. É o trecho mais rápido do dia.',
-        'É também o momento em que os golfinhos costumam aparecer, acompanhando a embarcação. Não é garantido — mas acontece com frequência.'
+        'É também quando os golfinhos costumam aparecer, acompanhando a embarcação. Não é atração do passeio e não dá pra prometer — depende do dia.'
+      ],
+      galeria: [
+        ['assets/grupo-guia.jpg', 'Tripulação e passageiros no retorno']
       ],
       fatos: [
         ['Trajeto', 'Direto, cortando o canal'],
         ['Chegada', 'Por volta das 14h (saída das 08h)'],
-        ['Golfinhos', 'Frequentes, mas não garantidos']
+        ['Golfinhos', 'Podem aparecer — depende do dia e da sorte']
       ]
     }
   };
