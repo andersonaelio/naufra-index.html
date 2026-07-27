@@ -4,14 +4,15 @@
   MAPA DE SEÇÕES (pra editar sem ler o arquivo inteiro):
   1. HERO ............ vídeo da proa, tela cheia
   2. PILARES ......... faixa estática de credenciais
-  3. O DIA ........... 6 capítulos com mídia clicável -> abre painel de profundidade
-  4. GOLFINHOS ....... clímax, card com vídeo vertical
-  5. CTA-MEIO ........ chamada após o clímax
-  6. SOCIAL .......... 5.0 / 31 avaliações Google
-  7. FICHA ........... tabela do passeio + ponto de encontro
-  8. CARTA ........... mapa SVG (detalhe final, NÃO reconstruir - geometria validada)
-  9. FECHAMENTO ...... foto pôr do sol + CTA
-  10. MODAL/STICKY ... agendamento WhatsApp
+  3. TOUR ............ vídeo panorâmico 1min, play MANUAL (não autoplay: não pode competir com golfinhos)
+  4. O DIA ........... 6 capítulos com mídia clicável -> abre painel de profundidade
+  5. GOLFINHOS ....... clímax, card com vídeo vertical (autoplay)
+  6. CTA-MEIO ........ chamada após o clímax
+  7. SOCIAL .......... 5.0 / 31 avaliações Google
+  8. FICHA ........... tabela do passeio + ponto de encontro
+  9. CARTA ........... mapa SVG (detalhe final, NÃO reconstruir - geometria validada)
+  10. FECHAMENTO ..... foto pôr do sol + CTA
+  11. MODAL/STICKY ... agendamento WhatsApp
   PAINÉIS: textos marcados com data-provisorio="1" precisam de confirmação do Rafael.
 -->
 <html lang="pt-BR">
@@ -129,7 +130,29 @@
   .aviso{font-size:13.5px;color:#7A5A1E;background:#F3E4BC;padding:11px 15px;margin-top:6px;
     border-left:3px solid #C9992E;max-width:46ch}
 
-  /* ---------- 4. GOLFINHOS (card, vídeo vertical em tamanho contido) ---------- */
+  /* ---------- 3. VÍDEO PANORÂMICO (play manual, não compete com golfinhos) ---------- */
+  .tour{padding:clamp(60px,9vw,100px) 0;background:var(--papel-2);
+    border-bottom:1.5px solid rgba(27,58,92,.16)}
+  .tour-wrap{display:grid;grid-template-columns:1fr auto;gap:clamp(28px,5vw,60px);align-items:center}
+  @media(max-width:860px){.tour-wrap{grid-template-columns:1fr;gap:26px;justify-items:center;text-align:center}}
+  .tour-texto .mono{display:block;margin-bottom:14px;text-transform:uppercase;letter-spacing:.16em}
+  .tour-texto h2{font-size:clamp(2rem,4.6vw,3.2rem);max-width:16ch;margin-bottom:16px}
+  @media(max-width:860px){.tour-texto h2{max-width:none}}
+  .tour-texto p{color:#41546A;font-size:16px;max-width:42ch}
+  .tour-player{position:relative;width:min(360px,78vw);border:1.5px solid var(--tinta);
+    box-shadow:8px 8px 0 rgba(27,58,92,.15);line-height:0;background:#0E2430}
+  .tour-player video{width:100%;height:auto;display:block}
+  .tour-play{position:absolute;inset:0;width:100%;height:100%;z-index:2;cursor:pointer;
+    background:rgba(12,24,38,.32);border:none;color:var(--papel);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+    transition:background .2s ease}
+  .tour-play:hover{background:rgba(12,24,38,.46)}
+  .tour-play svg{background:var(--boia);border-radius:50%;padding:13px;width:56px;height:56px}
+  .tour-play .mono{color:var(--papel);text-transform:uppercase;letter-spacing:.12em;
+    text-shadow:0 1px 4px rgba(0,0,0,.6)}
+  .tour-player.tocando .tour-play{display:none}
+
+  /* ---------- 5. GOLFINHOS (card, vídeo vertical em tamanho contido) ---------- */
   .uau{background:#0E2430;color:var(--papel);padding:clamp(60px,9vw,100px) 0;
     border-top:1.5px solid var(--tinta)}
   .uau-grid{display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,5vw,60px);align-items:center}
@@ -256,14 +279,15 @@
   .campo{margin-bottom:17px}
   .campo label{display:block;font-family:var(--mono);font-size:13px;text-transform:uppercase;
     letter-spacing:.07em;color:var(--tinta-clara);margin-bottom:6px}
-  .campo input[type=date], .campo input[type=number]{width:100%;padding:12px 14px;
+  .campo input[type=number]{width:100%;padding:12px 14px;
     border:1.5px solid var(--tinta);background:var(--papel);font-family:var(--corpo);
     font-size:16px;color:var(--tinta)}
-  .radios{display:flex;gap:10px}
-  .radios label{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;
-    border:1.5px solid var(--tinta);padding:12px 8px;cursor:pointer;font-size:14px;
-    font-family:var(--corpo);text-transform:none;letter-spacing:0;color:var(--tinta);margin:0}
-  .radios input{margin:0}
+  .data-dupla{display:flex;gap:10px}
+  .data-dupla select{flex:1;width:100%;padding:12px 10px;
+    border:1.5px solid var(--tinta);background:var(--papel);font-family:var(--corpo);
+    font-size:16px;color:var(--tinta);appearance:none;-webkit-appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231B3A5C' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 8px center;background-size:16px;padding-right:30px}
   .modal .btn{width:100%;justify-content:center;margin-top:6px}
   .modal-garantia{text-align:center;margin-top:12px;color:var(--tinta-clara)}
 
@@ -302,7 +326,27 @@
   </div>
 </section>
 
-<!-- 3. O DIA -->
+<!-- 3. VÍDEO PANORÂMICO -->
+<section class="tour">
+  <div class="wrap tour-wrap">
+    <div class="tour-texto reveal">
+      <span class="mono">Um minuto a bordo</span>
+      <h2>O passeio inteiro, sem corte de marketing.</h2>
+      <p>Gravado num passeio comum, passando por cada ponto da rota — do embarque na Caieira até a volta pelo mar aberto.</p>
+    </div>
+    <div class="tour-player reveal" id="tourPlayer">
+      <video id="tourVideo" poster="assets/passeio-completo-poster.jpg" preload="none" playsinline controls>
+        <source src="assets/passeio-completo.mp4" type="video/mp4">
+      </video>
+      <button class="tour-play" id="tourPlay" aria-label="Reproduzir vídeo do passeio">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span class="mono">Ver o passeio · 1min</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- 4. O DIA -->
 <section class="dia" id="o-dia">
   <div class="wrap">
     <div class="secao-topo reveal">
@@ -335,7 +379,7 @@
       <!-- CAP 2 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p2">
-          <img src="assets/retorno.jpg" alt="Costão e mar turquesa na altura dos Naufragados" loading="lazy">
+          <img src="assets/farol-naufragados.jpg" alt="Farol dos Naufragados visto do mar, entre a mata e as pedras" loading="lazy">
           <span class="lupa">＋ abrir</span>
         </div>
         <div class="cap-texto">
@@ -618,21 +662,33 @@
   <div class="modal">
     <span class="mono modal-kicker">Requisição de embarque</span>
     <h3 id="modalTitulo">Garantir minha vaga</h3>
-    <span class="mono modal-sub">Responda 3 coisas e a mensagem chega pronta no WhatsApp.</span>
+    <span class="mono modal-sub">Responda 2 coisas e a mensagem chega pronta no WhatsApp.</span>
     <div class="campo">
-      <label for="fData">Data desejada</label>
-      <input type="date" id="fData">
+      <label for="fDia">Data desejada</label>
+      <div class="data-dupla">
+        <select id="fDia" aria-label="Dia">
+          <option value="">Dia</option>
+        </select>
+        <select id="fMes" aria-label="Mês">
+          <option value="">Mês</option>
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
     </div>
     <div class="campo">
       <label for="fPessoas">Quantas pessoas</label>
       <input type="number" id="fPessoas" min="1" max="30" placeholder="2">
-    </div>
-    <div class="campo">
-      <label>Tipo de saída</label>
-      <div class="radios">
-        <label><input type="radio" name="fTipo" value="Regular" checked> Regular</label>
-        <label><input type="radio" name="fTipo" value="Privativo"> Privativo</label>
-      </div>
     </div>
     <button class="btn" id="enviarZap">Enviar no WhatsApp</button>
     <p class="mono modal-garantia">a mensagem já vai pronta — é só enviar</p>
@@ -672,7 +728,7 @@
     p2: {
       kicker: 'Parada 02',
       titulo: 'Farol dos Naufragados',
-      media: {tipo:'img', src:'assets/retorno.jpg', alt:'Mar turquesa na altura dos Naufragados'},
+      media: {tipo:'img', src:'assets/farol-naufragados.jpg', alt:'Farol dos Naufragados visto do mar'},
       texto: [
         'A Praia dos Naufragados fica no ponto mais ao sul da Ilha de Santa Catarina e não tem acesso por carro: chega-se de barco ou por trilha. Do mar, dá pra ver o farol lá em cima do costão.',
         'É nessa parada que o guia costuma contar as histórias da pesca da tainha e da cultura manezinha — a parte do passeio que nenhuma escuna grande consegue entregar, porque depende de quem cresceu ali.'
@@ -794,6 +850,24 @@
   document.getElementById('painelFechar').addEventListener('click', fechaPainel);
   pFundo.addEventListener('click', e=>{ if(e.target === pFundo) fechaPainel(); });
 
+  // ---------- vídeo panorâmico: play manual ----------
+  const tourPlayer = document.getElementById('tourPlayer');
+  const tourVideo = document.getElementById('tourVideo');
+  const tourPlay = document.getElementById('tourPlay');
+  if(tourPlayer && tourVideo && tourPlay){
+    tourPlay.addEventListener('click', ()=>{
+      tourPlayer.classList.add('tocando');
+      tourVideo.play();
+    });
+    tourVideo.addEventListener('pause', ()=>{
+      if(tourVideo.currentTime === 0 || tourVideo.ended) tourPlayer.classList.remove('tocando');
+    });
+    tourVideo.addEventListener('ended', ()=>{
+      tourVideo.currentTime = 0;
+      tourPlayer.classList.remove('tocando');
+    });
+  }
+
   // ---------- reveal ----------
   const io = new IntersectionObserver((es)=>{
     es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
@@ -858,16 +932,35 @@
   });
 
   // ---------- whatsapp qualificado ----------
-  const campoData = document.getElementById('fData');
-  campoData.min = new Date().toISOString().split('T')[0];
+  const campoDia = document.getElementById('fDia');
+  for(let i=1;i<=31;i++){
+    const op = document.createElement('option');
+    op.value = i; op.textContent = i;
+    campoDia.appendChild(op);
+  }
+  const campoMes = document.getElementById('fMes');
+
+  function anoCerto(dia, mes){
+    // se dia/mês já passou este ano, assume o ano que vem
+    const hoje = new Date();
+    const candidato = new Date(hoje.getFullYear(), mes-1, dia);
+    candidato.setHours(0,0,0,0);
+    const hojeZero = new Date(hoje.getFullYear(), hoje.getMonth(), hoje.getDate());
+    return candidato < hojeZero ? hoje.getFullYear()+1 : hoje.getFullYear();
+  }
+
   document.getElementById('enviarZap').addEventListener('click', ()=>{
-    const d = campoData.value;
+    const dia = campoDia.value;
+    const mes = campoMes.value;
     const n = document.getElementById('fPessoas').value;
-    const t = document.querySelector('input[name=fTipo]:checked').value;
     let msg = 'Oi! Quero agendar o passeio de barco 🚤';
-    if(d){ const [a,m,dia] = d.split('-'); msg += '\nData: ' + dia + '/' + m + '/' + a; }
+    if(dia && mes){
+      const ano = anoCerto(parseInt(dia), parseInt(mes));
+      const diaFmt = String(dia).padStart(2,'0');
+      const mesFmt = String(mes).padStart(2,'0');
+      msg += '\nData: ' + diaFmt + '/' + mesFmt + '/' + ano;
+    }
     if(n){ msg += '\nPessoas: ' + n; }
-    msg += '\nTipo: ' + t;
     window.open('https://wa.me/554891866991?text=' + encodeURIComponent(msg), '_blank');
   });
 })();
