@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Crawlers de IA liberados de propósito: o objetivo é ser citado
+# nas respostas do ChatGPT, Gemini e Perplexity (ver Passo 8 do SEO).
+
+Sitemap: https://ilhasdosulpasseios.com.br/sitemap.xml

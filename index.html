@@ -10,21 +10,47 @@
   6. CTA-MEIO ........ chamada após o clímax
   7. SOCIAL .......... 5.0 / 31 avaliações Google
   8. FICHA ........... tabela do passeio + ponto de encontro
-  9. CARTA ........... mapa SVG (detalhe final, NÃO reconstruir - geometria validada)
-  10. FECHAMENTO ..... foto pôr do sol + CTA
-  11. MODAL/STICKY ... agendamento WhatsApp
+  9. PERGUNTAS ....... FAQ visível (obrigatória: sustenta o FAQPage schema)
+  10. CARTA .......... mapa SVG (detalhe final, NÃO reconstruir - geometria validada)
+  11. FECHAMENTO ..... foto pôr do sol + CTA
+  12. MODAL/STICKY ... agendamento WhatsApp
   PAINÉIS: textos marcados com data-provisorio="1" precisam de confirmação do Rafael.
+
+  ⚠ DOMÍNIO PROVISÓRIO — antes de publicar, buscar e substituir:
+     https://ilhasdosulpasseios.com.br  ->  domínio real
+     Ocorre no <head> (canonical, OG, twitter), nos 4 blocos JSON-LD,
+     no robots.txt e no sitemap.xml. Um find-and-replace resolve tudo.
 -->
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Ilhas do Sul Passeios · Um dia de barco no sul da Ilha</title>
-<meta name="description" content="Seis horas de barco pelo extremo sul da Ilha de Santa Catarina, guiado por pescadores locais. Naufragados, Fortaleza de Araçatuba, Ponta do Papagaio e Pedras Altas.">
-<meta property="og:title" content="Ilhas do Sul Passeios · Um dia de barco no sul da Ilha">
-<meta property="og:description" content="Seis horas de navegação pelo extremo sul de Floripa, com pescadores locais como guias. R$130 por pessoa.">
-<meta property="og:image" content="assets/hero-barco.jpg">
+<title>Passeio de Barco no Sul da Ilha · Floripa · Ilhas do Sul</title>
+<meta name="description" content="6 horas de barco pelo sul de Floripa com pescadores locais: Naufragados, Fortaleza de Araçatuba e Ponta do Papagaio. R$ 130. Reserve pelo WhatsApp.">
+<link rel="canonical" href="https://ilhasdosulpasseios.com.br/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="preload" as="image" href="assets/hero-barco-mobile.webp" media="(max-width:700px)">
+<link rel="preload" as="image" href="assets/hero-barco.webp" media="(min-width:701px)">
+
+<meta property="og:title" content="Passeio de Barco no Sul da Ilha · Ilhas do Sul Passeios">
+<meta property="og:description" content="6 horas de navegação pelo extremo sul de Floripa, com pescadores locais como guias. R$ 130 por pessoa.">
+<meta property="og:image" content="https://ilhasdosulpasseios.com.br/assets/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://ilhasdosulpasseios.com.br/">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Ilhas do Sul Passeios">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Passeio de Barco no Sul da Ilha · Ilhas do Sul Passeios">
+<meta name="twitter:description" content="6 horas pelo sul de Floripa com pescadores locais. R$ 130 por pessoa.">
+<meta name="twitter:image" content="https://ilhasdosulpasseios.com.br/assets/og-image.jpg">
+
+<meta name="geo.region" content="BR-SC">
+<meta name="geo.placename" content="Caieira da Barra do Sul, Florianópolis">
+<meta name="geo.position" content="-27.815;-48.560">
+<meta name="ICBM" content="-27.815, -48.560">
 <meta name="theme-color" content="#1B3A5C">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F7F1E3'/%3E%3Cg stroke='%231B3A5C' stroke-width='2.4' fill='none' stroke-linecap='round'%3E%3Ccircle cx='16' cy='7' r='2.6'/%3E%3Cline x1='16' y1='10' x2='16' y2='25'/%3E%3Cline x1='10' y1='13' x2='22' y2='13'/%3E%3Cpath d='M8 19c1 6 5 8 8 8s7-2 8-8'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +65,8 @@
     --mono:'IBM Plex Mono', monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0 0 0 0);white-space:nowrap;border:0}
   html{scroll-behavior:smooth}
   body{font-family:var(--corpo);background:var(--papel);color:var(--tinta);
     line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -214,6 +242,28 @@
   .encontro .mono{display:block;margin-bottom:6px}
   .encontro p{font-size:14.5px;color:#41546A;margin-bottom:20px}
 
+  /* ---------- 7.5 PERGUNTAS (FAQ) ---------- */
+  .faq{padding:clamp(70px,10vw,110px) 0;border-top:1.5px solid var(--tinta);background:var(--papel)}
+  .faq-cab{max-width:52ch;margin-bottom:clamp(30px,4vw,44px)}
+  .faq-cab h2{font-size:clamp(2rem,4.5vw,3rem);margin:8px 0 12px}
+  .faq-cab p{color:#41546A;font-size:16px}
+  .faq-lista{border-top:1px solid rgba(27,58,92,.28);max-width:78ch}
+  .faq-item{border-bottom:1px solid rgba(27,58,92,.28)}
+  .faq-item summary{list-style:none;cursor:pointer;padding:20px 44px 20px 0;position:relative;
+    font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:-.01em;
+    font-size:clamp(1.05rem,2.2vw,1.3rem);line-height:1.15;color:var(--tinta)}
+  .faq-item summary::-webkit-details-marker{display:none}
+  .faq-item summary::after{content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+    font-family:var(--mono);font-size:22px;color:var(--boia);transition:transform .2s ease}
+  .faq-item[open] summary::after{content:"–"}
+  .faq-item summary:hover{color:var(--boia)}
+  .faq-item summary:focus-visible{outline:2px solid var(--boia);outline-offset:3px}
+  .faq-resposta{padding:0 44px 22px 0;color:#41546A;font-size:16px;max-width:62ch}
+  @media(max-width:700px){
+    .faq-item summary{font-size:1.05rem;padding:18px 38px 18px 0}
+    .faq-resposta{font-size:15.5px;padding-bottom:20px}
+  }
+
   /* ---------- 8. CARTA (mapa) ---------- */
   .carta{padding:clamp(70px,10vw,110px) 0;border-top:1.5px solid rgba(27,58,92,.2)}
   .carta-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(30px,5vw,58px);align-items:center}
@@ -297,15 +347,146 @@
     border-top:1.5px solid var(--tinta)}
   .sticky-cta .btn{width:100%;max-width:420px;justify-content:center}
 </style>
+
+<!-- ===================== DADOS ESTRUTURADOS (JSON-LD) =====================
+     4 blocos. Ao editar qualquer dado do passeio (preço, horário, endereço,
+     nota do Google), atualizar aqui TAMBÉM, senão o schema fica mentindo.
+     A FAQ abaixo espelha a seção #perguntas: mudou uma, muda a outra.
+========================================================================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TravelAgency",
+      "@id": "https://ilhasdosulpasseios.com.br/#negocio",
+      "name": "Ilhas do Sul Passeios",
+      "description": "Passeio de barco de 6 horas pelo extremo sul da Ilha de Santa Catarina, guiado por pescadores da Caieira da Barra do Sul.",
+      "url": "https://ilhasdosulpasseios.com.br/",
+      "telephone": "+5548991866991",
+      "image": "https://ilhasdosulpasseios.com.br/assets/og-image.jpg",
+      "priceRange": "R$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rod. Baldicero Filomeno, 20255",
+        "addressLocality": "Florianópolis",
+        "addressRegion": "SC",
+        "postalCode": "88064-764",
+        "addressCountry": "BR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -27.815,
+        "longitude": -48.560
+      },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "07:00",
+        "closes": "19:00"
+      }],
+      "sameAs": ["https://www.instagram.com/ilhasdosulpasseios"],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "reviewCount": "31",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "TouristTrip",
+      "@id": "https://ilhasdosulpasseios.com.br/#passeio",
+      "name": "Passeio de barco no sul da Ilha de Santa Catarina",
+      "description": "Seis horas de navegação saindo da Caieira da Barra do Sul, passando pelo Farol dos Naufragados, Fortaleza de Araçatuba, Ponta do Papagaio e Praia de Pedras Altas, com paradas para mergulho e almoço.",
+      "url": "https://ilhasdosulpasseios.com.br/",
+      "image": "https://ilhasdosulpasseios.com.br/assets/og-image.jpg",
+      "provider": { "@id": "https://ilhasdosulpasseios.com.br/#negocio" },
+      "touristType": ["Família", "Casal", "Grupo pequeno"],
+      "itinerary": {
+        "@type": "ItemList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "item": { "@type": "TouristAttraction", "name": "Caieira da Barra do Sul", "description": "Embarque na areia, no ponto mais ao sul da Ilha onde ainda se chega de carro." }},
+          { "@type": "ListItem", "position": 2, "item": { "@type": "TouristAttraction", "name": "Farol dos Naufragados", "description": "Parada em frente ao farol, com histórias da pesca da tainha contadas pelos guias." }},
+          { "@type": "ListItem", "position": 3, "item": { "@type": "TouristAttraction", "name": "Fortaleza de Nossa Senhora da Conceição de Araçatuba", "description": "Ruínas de pedra de 1742 sobre a Ilha de Araçatuba, em mar aberto." }},
+          { "@type": "ListItem", "position": 4, "item": { "@type": "TouristAttraction", "name": "Ponta do Papagaio", "description": "Uma hora ancorado em prainha de água transparente, de frente para a Ilha do Papagaio." }},
+          { "@type": "ListItem", "position": 5, "item": { "@type": "TouristAttraction", "name": "Praia de Pedras Altas", "description": "Duas horas de parada para praia e almoço, passando pelas fazendas de ostras." }}
+        ]
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "130.00",
+        "priceCurrency": "BRL",
+        "availability": "https://schema.org/InStock",
+        "url": "https://ilhasdosulpasseios.com.br/"
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Quanto custa o passeio de barco no sul da Ilha de Florianópolis?",
+      "acceptedAnswer": { "@type": "Answer", "text": "R$ 130 por pessoa, com reserva direta pelo WhatsApp. O valor cobre as 6 horas de navegação e todas as paradas da rota. O almoço em Pedras Altas não está incluso." }},
+    { "@type": "Question", "name": "Quanto tempo dura o passeio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Seis horas, com duas saídas por dia: 08h00 e 10h30, todos os dias. A maior parte dos passeios de barco da região dura de 1h a 1h30, então esse é um dia inteiro de mar, não um giro rápido." }},
+    { "@type": "Question", "name": "De onde sai o barco?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Da praia da Caieira da Barra do Sul, na Rod. Baldicero Filomeno, 20255, no Ribeirão da Ilha, em Florianópolis. Não há marina: o embarque é na areia mesmo, e dá pra chegar de carro até o ponto." }},
+    { "@type": "Question", "name": "Tem onde estacionar no ponto de embarque?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Tem. A maior parte dos passageiros deixa o carro na própria Rod. Baldicero Filomeno, na rua mesmo, que é tranquila e segura. Existem alguns estacionamentos particulares pagos nas proximidades, e no fim da rua fica o estacionamento da trilha dos Naufragados." }},
+    { "@type": "Question", "name": "Dá pra chegar em Naufragados de barco em vez de trilha?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sim. A trilha da Caieira até a Praia dos Naufragados tem cerca de 2,8 km e leva por volta de 50 minutos de caminhada. O passeio de barco contorna o costão e para em frente ao farol, sem caminhada, e ainda segue para a Fortaleza de Araçatuba e a Ponta do Papagaio." }},
+    { "@type": "Question", "name": "É comum ver golfinhos no passeio?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Golfinhos vivem nessa parte do mar e às vezes acompanham o barco no trajeto de volta. Não é atração programada e não tem como prometer: depende do dia, da maré e de sorte. Ninguém chama nem alimenta os animais." }},
+    { "@type": "Question", "name": "O passeio serve para crianças e famílias?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Sim. O grupo é pequeno, o mar da Baía Sul é abrigado e as paradas em Ponta do Papagaio e Pedras Altas são em praia rasa. Várias avaliações no Google descrevem o passeio como programa em família." }},
+    { "@type": "Question", "name": "O almoço está incluído no valor?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Não. Na parada de Pedras Altas dá pra almoçar peixe fresco no restaurante Pedras Altas Beach, pagando à parte, ou levar o próprio lanche e comer na sombra." }},
+    { "@type": "Question", "name": "Como faço a reserva?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pelo WhatsApp (48) 9186-6991, com antecedência, informando a data e quantas pessoas. As vagas por saída são limitadas, e no verão costumam fechar com dias de antecedência." }}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "O passeio inteiro, sem corte: um minuto a bordo",
+  "description": "Gravação de um passeio comum pelo sul da Ilha de Santa Catarina, do embarque na Caieira da Barra do Sul até a volta pelo mar aberto.",
+  "thumbnailUrl": "https://ilhasdosulpasseios.com.br/assets/passeio-completo-poster.webp",
+  "uploadDate": "2026-08-01",
+  "duration": "PT1M",
+  "contentUrl": "https://ilhasdosulpasseios.com.br/assets/passeio-completo.mp4"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Ilhas do Sul Passeios",
+  "url": "https://ilhasdosulpasseios.com.br/",
+  "inLanguage": "pt-BR",
+  "publisher": { "@id": "https://ilhasdosulpasseios.com.br/#negocio" }
+}
+</script>
 </head>
 <body>
 
 <!-- 1. HERO -->
 <header class="hero">
   <picture>
-    <source media="(max-width:700px)" srcset="assets/hero-barco-mobile.jpg">
-    <img src="assets/hero-barco.jpg" alt="Ilhas do Sul Passeios — enseada com barco ancorado em praia de águas cristalinas" fetchpriority="high">
+    <source media="(max-width:700px)" srcset="assets/hero-barco-mobile.webp">
+    <img src="assets/hero-barco.webp" alt="Ilhas do Sul Passeios — enseada com barco ancorado em praia de águas cristalinas" fetchpriority="high">
   </picture>
+  <!-- H1 invisível: o hero é foto limpa por decisão de design, mas a página
+       precisa declarar o que é. Para exibir na tela, remover a classe
+       sr-only e mover o h1 para dentro de .hero-conteudo. -->
+  <h1 class="sr-only">Passeio de barco de 6 horas no sul da Ilha de Santa Catarina, saindo da Caieira da Barra do Sul, em Florianópolis</h1>
   <div class="hero-topo">
     <span>CAIEIRA DA BARRA DO SUL · FLORIANÓPOLIS</span>
     <span>27°48'54"S 48°33'37"W</span>
@@ -335,7 +516,7 @@
       <p>Gravado num passeio comum, passando por cada ponto da rota — do embarque na Caieira até a volta pelo mar aberto.</p>
     </div>
     <div class="tour-player reveal" id="tourPlayer">
-      <video id="tourVideo" poster="assets/passeio-completo-poster.jpg" preload="none" playsinline controls>
+      <video id="tourVideo" poster="assets/passeio-completo-poster.webp" preload="none" playsinline controls>
         <source src="assets/passeio-completo.mp4" type="video/mp4">
       </video>
       <button class="tour-play" id="tourPlay" aria-label="Reproduzir vídeo do passeio">
@@ -365,7 +546,7 @@
       <!-- CAP 1 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p1">
-          <img src="assets/olhando-frente.jpg" alt="Grupo no barco saindo da Caieira, proa apontada pro sul" loading="lazy">
+          <img src="assets/olhando-frente.webp" alt="Grupo no barco saindo da Caieira, proa apontada pro sul" loading="lazy">
           <span class="lupa">＋ abrir</span>
         </div>
         <div class="cap-texto">
@@ -379,7 +560,7 @@
       <!-- CAP 2 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p2">
-          <img src="assets/farol-naufragados.jpg" alt="Farol dos Naufragados visto do mar, entre a mata e as pedras" loading="lazy">
+          <img src="assets/farol-naufragados.webp" alt="Farol dos Naufragados visto do mar, entre a mata e as pedras" loading="lazy">
           <span class="lupa">＋ abrir</span>
         </div>
         <div class="cap-texto">
@@ -393,7 +574,7 @@
       <!-- CAP 3 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p3">
-          <video autoplay muted loop playsinline poster="assets/fortaleza-mar.jpg">
+          <video autoplay muted loop playsinline poster="assets/fortaleza-mar.webp">
             <source src="assets/fortaleza-video.mp4" type="video/mp4">
           </video>
           <span class="lupa">＋ abrir</span>
@@ -409,7 +590,7 @@
       <!-- CAP 4 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p4">
-          <video autoplay muted loop playsinline poster="assets/papagaio.jpg">
+          <video autoplay muted loop playsinline poster="assets/papagaio.webp">
             <source src="assets/enseada.mp4" type="video/mp4">
           </video>
           <span class="lupa">＋ abrir</span>
@@ -425,7 +606,7 @@
       <!-- CAP 5 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p5">
-          <img src="assets/peixe-frito.jpg" alt="Peixe frito servido em panela de barro, com vista pro mar" loading="lazy">
+          <img src="assets/peixe-frito.webp" alt="Peixe frito servido em panela de barro, com vista pro mar" loading="lazy">
           <span class="lupa">＋ abrir</span>
         </div>
         <div class="cap-texto">
@@ -440,7 +621,7 @@
       <!-- CAP 6 -->
       <article class="cap reveal">
         <div class="cap-media" data-painel="p6">
-          <img src="assets/grupo-guia.jpg" alt="Tripulação e passageiros no barco durante o retorno" loading="lazy">
+          <img src="assets/grupo-guia.webp" alt="Tripulação e passageiros no barco durante o retorno" loading="lazy">
           <span class="lupa">＋ abrir</span>
         </div>
         <div class="cap-texto">
@@ -459,7 +640,7 @@
 <section class="uau">
   <div class="wrap uau-grid">
     <div class="uau-video reveal">
-      <video autoplay muted loop playsinline poster="assets/golfinhos-poster.jpg">
+      <video autoplay muted loop playsinline poster="assets/golfinhos-poster.webp">
         <source src="assets/golfinhos.mp4" type="video/mp4">
       </video>
     </div>
@@ -506,7 +687,7 @@
   <div class="wrap">
     <div class="ficha-col reveal">
       <span class="carimbo">Vagas<br>limitadas</span>
-      <h2>Ficha do passeio</h2>
+      <h2>Ficha do passeio de barco</h2>
       <div class="ficha-moldura">
         <div class="ficha-moldura-interna">
           <ul class="ficha-lista">
@@ -525,13 +706,75 @@
         <h3>Ponto de encontro</h3>
         <span class="mono">27°48'54"S · 48°33'37"W</span>
         <p>Rod. Baldicero Filomeno, 20255 · Ribeirão da Ilha, Florianópolis - SC</p>
+        <p>A maioria deixa o carro na própria rua, que é tranquila. No fim dela fica o estacionamento da trilha, e há alguns particulares por perto.</p>
         <a class="link-google" href="https://www.google.com/maps/search/?api=1&query=Rod.+Baldicero+Filomeno,+20255,+Ribeirão+da+Ilha,+Florianópolis" target="_blank" rel="noopener">Abrir no Google Maps</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 8. CARTA (mapa — geometria validada, não reconstruir) -->
+<!-- 9. PERGUNTAS (FAQ visível — obrigatória: o FAQPage schema exige que as
+     mesmas perguntas e respostas estejam na tela. Alterar aqui = alterar
+     também o bloco JSON-LD FAQPage no <head>.) -->
+<section class="faq" id="perguntas">
+  <div class="wrap">
+    <div class="faq-cab reveal">
+      <span class="mono">Antes de reservar</span>
+      <h2>O que perguntam mais</h2>
+      <p>Se ficar alguma dúvida fora daqui, é só chamar no WhatsApp que o Rafael responde.</p>
+    </div>
+    <div class="faq-lista reveal">
+
+      <details class="faq-item">
+        <summary>Quanto custa o passeio?</summary>
+        <div class="faq-resposta">R$ 130 por pessoa, com reserva direta pelo WhatsApp. O valor cobre as 6 horas de navegação e todas as paradas da rota. O almoço em Pedras Altas não está incluso.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quanto tempo dura?</summary>
+        <div class="faq-resposta">Seis horas, com duas saídas por dia: 08h00 e 10h30, todos os dias. A maior parte dos passeios de barco da região dura de 1h a 1h30, então esse é um dia inteiro de mar, não um giro rápido.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>De onde sai o barco?</summary>
+        <div class="faq-resposta">Da praia da Caieira da Barra do Sul, na Rod. Baldicero Filomeno, 20255, no Ribeirão da Ilha, em Florianópolis. Não há marina: o embarque é na areia mesmo, e dá pra chegar de carro até o ponto.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Tem onde estacionar?</summary>
+        <div class="faq-resposta">Tem. A maior parte dos passageiros deixa o carro na própria Rod. Baldicero Filomeno, na rua mesmo, que é tranquila e segura. Existem alguns estacionamentos particulares pagos nas proximidades, e no fim da rua fica o estacionamento da trilha dos Naufragados.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Dá pra chegar em Naufragados de barco em vez de trilha?</summary>
+        <div class="faq-resposta">Sim. A trilha da Caieira até a Praia dos Naufragados tem cerca de 2,8 km e leva por volta de 50 minutos de caminhada. O passeio de barco contorna o costão e para em frente ao farol, sem caminhada, e ainda segue para a Fortaleza de Araçatuba e a Ponta do Papagaio.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>É comum ver golfinhos?</summary>
+        <div class="faq-resposta">Golfinhos vivem nessa parte do mar e às vezes acompanham o barco no trajeto de volta. Não é atração programada e não tem como prometer: depende do dia, da maré e de sorte. Ninguém chama nem alimenta os animais.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Serve para crianças e famílias?</summary>
+        <div class="faq-resposta">Sim. O grupo é pequeno, o mar da Baía Sul é abrigado e as paradas em Ponta do Papagaio e Pedras Altas são em praia rasa. Várias avaliações no Google descrevem o passeio como programa em família.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>O almoço está incluído?</summary>
+        <div class="faq-resposta">Não. Na parada de Pedras Altas dá pra almoçar peixe fresco no restaurante Pedras Altas Beach, pagando à parte, ou levar o próprio lanche e comer na sombra.</div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Como faço a reserva?</summary>
+        <div class="faq-resposta">Pelo WhatsApp (48) 9186-6991, com antecedência, informando a data e quantas pessoas. As vagas por saída são limitadas, e no verão costumam fechar com dias de antecedência.</div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- 10. CARTA (mapa — geometria validada, não reconstruir) -->
 <section class="carta">
   <div class="wrap carta-grid">
     <div class="carta-texto reveal">
@@ -631,7 +874,7 @@
 
 <!-- 9. FECHAMENTO -->
 <section class="fim">
-  <img src="assets/sunset-barcos.jpg" alt="Pôr do sol com barcos ancorados na Caieira da Barra do Sul" loading="lazy">
+  <img src="assets/sunset-barcos.webp" alt="Pôr do sol com barcos ancorados na Caieira da Barra do Sul" loading="lazy">
   <div class="wrap">
     <h2>O verão passa rápido. A vaga também.</h2>
     <p>Escolhe a data, diz quantas pessoas, e a gente confirma no WhatsApp.</p>
@@ -710,13 +953,13 @@
     p1: {
       kicker: 'Parada 01',
       titulo: 'A saída da Caieira',
-      media: {tipo:'img', src:'assets/olhando-frente.jpg', alt:'Grupo no barco saindo da Caieira'},
+      media: {tipo:'img', src:'assets/olhando-frente.webp', alt:'Grupo no barco saindo da Caieira'},
       texto: [
         'A Caieira da Barra do Sul é o último vilarejo de pescadores no extremo sul de Florianópolis — depois dela, só mata e mar. O embarque acontece na praia mesmo: sem trapiche, sem fila, sem marina.',
         'Antes de sair, a tripulação distribui os coletes e dá o recado de segurança. Em poucos minutos o barco já está fora da enseada, com a proa apontada pro sul.'
       ],
       galeria: [
-        ['assets/chegada.jpg', 'Barco Maria Luísa chegando na enseada']
+        ['assets/chegada.webp', 'Barco Maria Luísa chegando na enseada']
       ],
       fatos: [
         ['Onde', 'Praia da Caieira da Barra do Sul'],
@@ -728,7 +971,7 @@
     p2: {
       kicker: 'Parada 02',
       titulo: 'Farol dos Naufragados',
-      media: {tipo:'img', src:'assets/farol-naufragados.jpg', alt:'Farol dos Naufragados visto do mar'},
+      media: {tipo:'img', src:'assets/farol-naufragados.webp', alt:'Farol dos Naufragados visto do mar'},
       texto: [
         'A Praia dos Naufragados fica no ponto mais ao sul da Ilha de Santa Catarina e não tem acesso por carro: chega-se de barco ou por trilha. Do mar, dá pra ver o farol lá em cima do costão.',
         'É nessa parada que o guia costuma contar as histórias da pesca da tainha e da cultura manezinha — a parte do passeio que nenhuma escuna grande consegue entregar, porque depende de quem cresceu ali.'
@@ -742,14 +985,14 @@
     p3: {
       kicker: 'Parada 03',
       titulo: 'Fortaleza de Araçatuba',
-      media: {tipo:'video', src:'assets/fortaleza-video.mp4', poster:'assets/fortaleza-mar.jpg'},
+      media: {tipo:'video', src:'assets/fortaleza-video.mp4', poster:'assets/fortaleza-mar.webp'},
       texto: [
         'Uma ilha pequena, cercada de pedra, com ruínas de uma antiga fortificação militar no topo, construída entre 1742 e 1744. O barco se aproxima devagar pra dar tempo de ver — e de ouvir a história contada por quem navega ali a vida toda.',
         'Do mar dá pra distinguir as paredes da construção principal e os muros de pedra que descem em direção à água.'
       ],
       galeria: [
-        ['assets/fortaleza-ruinas.jpg', 'Ruínas da fortaleza vistas de perto'],
-        ['assets/fortaleza-mar.jpg', 'A ilha da fortaleza vista do mar']
+        ['assets/fortaleza-ruinas.webp', 'Ruínas da fortaleza vistas de perto'],
+        ['assets/fortaleza-mar.webp', 'A ilha da fortaleza vista do mar']
       ],
       fatos: [
         ['O que é', 'Ruínas de fortificação em ilha'],
@@ -761,7 +1004,7 @@
     p4: {
       kicker: 'Parada 04 · Cerca de 1 hora',
       titulo: 'Ponta do Papagaio',
-      media: {tipo:'video', src:'assets/enseada.mp4', poster:'assets/papagaio.jpg'},
+      media: {tipo:'video', src:'assets/enseada.mp4', poster:'assets/papagaio.webp'},
       texto: [
         'A parada mais longa da manhã. O barco ancora numa prainha protegida de frente para a Ilha do Papagaio, com água transparente e fundo de pedra — condição rara nas praias mais movimentadas da ilha.',
         'É onde a maioria das pessoas entra na água. Quem tem snorkel, vale trazer: dá pra ver o fundo sem esforço nenhum.'
@@ -775,16 +1018,16 @@
     p5: {
       kicker: 'Parada 05 · Cerca de 2 horas',
       titulo: 'Almoço em Pedras Altas',
-      media: {tipo:'img', src:'assets/peixe-frito.jpg', alt:'Peixe frito em panela de barro com vista pro mar'},
+      media: {tipo:'img', src:'assets/peixe-frito.webp', alt:'Peixe frito em panela de barro com vista pro mar'},
       texto: [
         'No caminho, o barco passa pela Praia do Sonho e pelas fazendas de ostras da região. A parada final da ida é em Pedras Altas, uma praia praticamente particular pelo acesso difícil por terra.',
         'Ali funciona o restaurante Pedras Altas Beach, de pé na areia, com peixe fresco. São cerca de duas horas de parada: dá tempo de comer sem pressa, tomar algo gelado e ainda aproveitar a praia.'
       ],
       galeria: [
-        ['assets/pedras-altas.jpg', 'Praia de Pedras Altas'],
-        ['assets/gastronomia.jpg', 'Peixe com camarão, arroz e pirão'],
-        ['assets/pedras-altas-varanda.jpg', 'Varanda do restaurante de frente pro mar'],
-        ['assets/pedras-altas-bebida.jpg', 'Bebida gelada do restaurante Pedras Altas Beach']
+        ['assets/pedras-altas.webp', 'Praia de Pedras Altas'],
+        ['assets/gastronomia.webp', 'Peixe com camarão, arroz e pirão'],
+        ['assets/pedras-altas-varanda.webp', 'Varanda do restaurante de frente pro mar'],
+        ['assets/pedras-altas-bebida.webp', 'Bebida gelada do restaurante Pedras Altas Beach']
       ],
       fatos: [
         ['Restaurante', 'Pedras Altas Beach'],
@@ -798,14 +1041,14 @@
     p6: {
       kicker: 'Parada 06 · Retorno',
       titulo: 'A volta pelo mar aberto',
-      media: {tipo:'video', src:'assets/volta-mar.mp4', poster:'assets/volta-mar-poster.jpg'},
+      media: {tipo:'video', src:'assets/volta-mar.mp4', poster:'assets/volta-mar-poster.webp'},
       texto: [
         'A volta não refaz o caminho da ida: o barco corta direto pelo canal, em mar aberto, de Pedras Altas até a Caieira. É o trecho mais rápido do dia.',
         'É também quando os golfinhos costumam aparecer, acompanhando a embarcação. Não é atração do passeio e não dá pra prometer — depende do dia.'
       ],
       galeria: [
-        ['assets/volta-1.jpg', 'Vista do mar durante o retorno'],
-        ['assets/volta-2.jpg', 'Passageiros no retorno pelo mar aberto']
+        ['assets/volta-1.webp', 'Vista do mar durante o retorno'],
+        ['assets/volta-2.webp', 'Passageiros no retorno pelo mar aberto']
       ],
       fatos: [
         ['Trajeto', 'Direto, cortando o canal'],
@@ -829,7 +1072,7 @@
     if(d.media.tipo === 'video'){
       pMedia.innerHTML = '<video autoplay muted loop playsinline poster="'+d.media.poster+'"><source src="'+d.media.src+'" type="video/mp4"></video>';
     } else {
-      pMedia.innerHTML = '<img src="'+d.media.src+'" alt="'+(d.media.alt||'')+'">';
+      pMedia.innerHTML = '<img src="'+d.media.src+'" alt="'+(d.media.alt||'')+'" loading="lazy" decoding="async">';
     }
     pKicker.textContent = d.kicker;
     pTitulo.textContent = d.titulo;
